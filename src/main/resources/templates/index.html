@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>SQL Translator</title>
 </head>
+
 <body>
+<form method="post" th:action="@{/translate}">
+    <input type="text" name="query" size="200" placeholder="Tu wpisz zapytanie w języku naturalnym" />
+    <input type="submit" value="Translate!"/>
+</form>
 
 </body>
 </html>
