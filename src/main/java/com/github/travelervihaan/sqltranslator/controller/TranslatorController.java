@@ -13,6 +13,6 @@ public class TranslatorController {
 
     @RequestMapping("/translate")
     public String translate(){
-        return "index";
+        return "redirect:/index";
     }
 }
