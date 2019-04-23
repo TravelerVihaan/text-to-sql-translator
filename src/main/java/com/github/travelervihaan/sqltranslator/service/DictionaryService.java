@@ -30,15 +30,11 @@ public class DictionaryService {
 		}
 	}
 	
-	public String compareWord(String word) {
-		List<Dictionary> dictionaries = getAllDictionaries();
-		for(Dictionary dict : dictionaries) {
-			List<String> words = dict.getDictionaryWords();
-			for(String dictionaryWord : words) {
-				if(dictionaryWord.equals(word))
-					return dict.getName();
-			}
+	public boolean compareWord(Dictionary dictionary, String word) {
+		for(String dictionaryWord: dictionary.getDictionaryWords()){
+			if(dictionaryWord.equals(word))
+				return true;
 		}
-		return "";
+		return false;
 	}
 }
