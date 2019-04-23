@@ -10,10 +10,15 @@ public class TranslatorService {
 	
 	public void setNaturalLanguageStatement(String statement) {
 		this.naturalLanguageStatement = statement;
+		splitStatement();
 	}
 	
 	private void splitStatement() {
 		statementWords = naturalLanguageStatement.split(" ");
+	}
+	
+	public String[] getStatementWords() {
+		return statementWords;
 	}
 	
 
