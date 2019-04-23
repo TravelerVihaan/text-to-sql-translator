@@ -19,7 +19,7 @@ public class DictionaryController {
 		this.dictionaryService = dictionaryService;
 	}
 	
-	@GetMapping("/")
+	@GetMapping(value={"/",""})
 	public String dictionaries(Model model) {
 		model.addAttribute("dictionaries", dictionaryService.getAllDictionaries());
 		return "dictionary/dictionary";
