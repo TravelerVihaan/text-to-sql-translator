@@ -21,7 +21,9 @@
 		<div class="row">
 			<div class="col-sm-10">
 				<div th:if="not ${dictionaries.isEmpty()}">
-
+					<select class="form-control">
+  						<option>Standardowy select</option>
+					</select>
 				</div>
 				<div th:if="${dictionaries.isEmpty()}">
 					Please, first choose dictionary
