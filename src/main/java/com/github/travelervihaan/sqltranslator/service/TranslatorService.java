@@ -19,7 +19,7 @@ public class TranslatorService {
 	}
 	
 	private String digFirstWord() {
-		String[] splittedStatement = naturalLanguageStatement.split(" ",1);
+		String[] splittedStatement = naturalLanguageStatement.split(" ");
 		return splittedStatement[0];
 	}
 

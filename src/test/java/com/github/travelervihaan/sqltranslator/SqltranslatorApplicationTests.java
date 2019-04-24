@@ -20,7 +20,7 @@ public class SqltranslatorApplicationTests {
         TranslatorService ts = new TranslatorService();
         ts.setNaturalLanguageStatement("ala ma kota");
         System.out.println(ts.getFirstWord());
-        Assert.assertTrue("ala ma kota".equals(ts.getFirstWord()));
+        Assert.assertTrue("ala".equals(ts.getFirstWord()));
     }
 
 }
