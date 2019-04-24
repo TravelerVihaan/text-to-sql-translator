@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public class TranslatorService {
 	
 	private String naturalLanguageStatement;
-	private String firstWord;
+	private String[] splittedStatement;
 
 	private Query query;
 
@@ -15,15 +15,18 @@ public class TranslatorService {
 	
 	public void setNaturalLanguageStatement(String statement) {
 		this.naturalLanguageStatement = statement;
-		this.firstWord = digFirstWord();
+		splitStatement();
+	}
+
+	private void splitStatement(){
+		this.splittedStatement = naturalLanguageStatement.split(" ");
 	}
 	
-	private String digFirstWord() {
-		String[] splittedStatement = naturalLanguageStatement.split(" ");
+	public String getFirstWord(){
 		return splittedStatement[0];
 	}
 
-	public String getFirstWord(){
-		return firstWord;
+	public String[] getSplittedStatement(){
+		return splittedStatement;
 	}
 }
