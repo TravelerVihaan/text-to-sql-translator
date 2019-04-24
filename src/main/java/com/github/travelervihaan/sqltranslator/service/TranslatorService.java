@@ -1,25 +1,29 @@
 package com.github.travelervihaan.sqltranslator.service;
 
+import com.github.travelervihaan.sqltranslator.query.Query;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TranslatorService {
 	
 	private String naturalLanguageStatement;
-	private String[] statementWords;
+	private String firstWord;
+
+	private Query query;
+
+	public TranslatorService(){ }
 	
 	public void setNaturalLanguageStatement(String statement) {
 		this.naturalLanguageStatement = statement;
-		splitStatement();
+		this.firstWord = digFirstWord();
 	}
 	
-	private void splitStatement() {
-		statementWords = naturalLanguageStatement.split(" ");
+	private String digFirstWord() {
+		String[] splittedStatement = naturalLanguageStatement.split(" ",1);
+		return splittedStatement[0];
 	}
-	
-	public String[] getStatementWords() {
-		return statementWords;
-	}
-	
 
+	public String getFirstWord(){
+		return firstWord;
+	}
 }
