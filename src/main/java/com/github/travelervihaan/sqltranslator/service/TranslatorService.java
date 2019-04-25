@@ -55,6 +55,10 @@ public class TranslatorService {
 			return false;
 	}
 	
+	public String getPreparedQuery() {
+		return query.getPreparedQuery();
+	}
+	
 	public String getFirstWord(){
 		return splittedStatement[0];
 	}
