@@ -15,12 +15,4 @@ public class SqltranslatorApplicationTests {
     public void contextLoads() {
     }
 
-    @Test
-    public void splitTest(){
-        TranslatorService ts = new TranslatorService();
-        ts.setNaturalLanguageStatement("ala ma kota");
-        System.out.println(ts.getFirstWord());
-        Assert.assertTrue("ala".equals(ts.getFirstWord()));
-    }
-
 }

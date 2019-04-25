@@ -30,6 +30,10 @@ public class DictionaryService {
 		}
 	}
 	
+	public Dictionary getByName(String dictionaryName) {
+		return dictionaryRepository.findByName(dictionaryName);
+	}
+	
 	public boolean compareWord(Dictionary dictionary, String word) {
 		for(String dictionaryWord: dictionary.getDictionaryWords()){
 			if(dictionaryWord.equals(word))
