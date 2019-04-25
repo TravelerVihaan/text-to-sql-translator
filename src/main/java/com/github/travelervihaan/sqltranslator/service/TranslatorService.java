@@ -4,6 +4,7 @@ import com.github.travelervihaan.sqltranslator.query.DeleteQuery;
 import com.github.travelervihaan.sqltranslator.query.Query;
 import com.github.travelervihaan.sqltranslator.query.SelectQuery;
 import com.github.travelervihaan.sqltranslator.query.UpdateQuery;
+import com.mongodb.MongoSocketException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,10 +50,15 @@ public class TranslatorService {
 	}
 	
 	private boolean compareFirstWord(String queryType) {
-		if(dictionaryService.compareWord(dictionaryService.getByName(queryType), this.getFirstWord()))
-			return true;
-		else
+		try {
+			if(dictionaryService.compareWord(dictionaryService.getByName(queryType), this.getFirstWord()))
+				return true;
+			else
+				return false;
+		}catch(MongoSocketException e) {
+			System.err.println("[ERROR] Problem with database connection!\n");
 			return false;
+		}
 	}
 	
 	public String getPreparedQuery() {
