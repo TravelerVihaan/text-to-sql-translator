@@ -4,6 +4,7 @@ public class SelectQuery implements Query {
 	
 	private String[] statement;
 	private String preparedQuery;
+	private StringBuilder stringBuilder;
 	
 	public SelectQuery(String[] statement) {
 		this.statement = statement;
@@ -17,5 +18,9 @@ public class SelectQuery implements Query {
 	@Override
 	public String getPreparedQuery() {
 		return preparedQuery;
+	}
+	
+	@Override
+	public void appendToString() {
 	}
 }

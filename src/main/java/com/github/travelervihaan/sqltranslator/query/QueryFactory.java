@@ -12,6 +12,10 @@ public class QueryFactory {
 	private final String UPDATE = "update";
 	private DictionaryService dictionaryService;
 	
+	public QueryFactory() {
+		setDictionaryService(dictionaryService);
+	}
+	
 	@Autowired
 	public void setDictionaryService(DictionaryService dictionaryService) {
 		this.dictionaryService = dictionaryService;
