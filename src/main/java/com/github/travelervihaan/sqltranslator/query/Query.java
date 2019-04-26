@@ -5,4 +5,5 @@ public interface Query {
 	public void prepareQuery();
 	
 	public String getPreparedQuery();
+	
 }
