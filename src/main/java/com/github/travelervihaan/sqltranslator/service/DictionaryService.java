@@ -36,7 +36,7 @@ public class DictionaryService {
 	
 	public boolean compareWord(Dictionary dictionary, String word) {
 		for(String dictionaryWord: dictionary.getDictionaryWords()){
-			if(dictionaryWord.equals(word))
+			if(dictionaryWord.equalsIgnoreCase(word))
 				return true;
 		}
 		return false;
