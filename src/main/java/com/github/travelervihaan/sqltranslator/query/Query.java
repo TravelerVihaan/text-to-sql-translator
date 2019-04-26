@@ -6,6 +6,4 @@ public interface Query {
 	
 	public String getPreparedQuery();
 	
-	public void appendToString();
-	
 }

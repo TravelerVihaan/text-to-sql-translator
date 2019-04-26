@@ -1,13 +1,9 @@
 package com.github.travelervihaan.sqltranslator.query;
 
-public class DeleteQuery implements Query {
-	
-	private String[] statement;
-	private String preparedQuery;
-	private StringBuilder stringBuilder;
+public class DeleteQuery extends AbstractQuery{
 	
 	public DeleteQuery(String[] statement) {
-		this.statement = statement;
+		super(statement);
 	}
 
 	@Override
@@ -15,12 +11,4 @@ public class DeleteQuery implements Query {
 		// TODO Auto-generated method stub
 	}
 
-	@Override
-	public String getPreparedQuery() {
-		return preparedQuery;
-	}
-	
-	@Override
-	public void appendToString() {
-	}
 }
