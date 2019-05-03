@@ -10,7 +10,7 @@ public class SelectQuery extends AbstractQuery {
 	public void prepareQuery() {
 		if(checkAllDictionary())
 			return;
-		
+		//TODO
 	}
 
 }

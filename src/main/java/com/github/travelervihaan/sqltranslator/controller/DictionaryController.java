@@ -27,7 +27,7 @@ public class DictionaryController {
 	}
 	
 	@PostMapping(value= {"/",""})
-	public String modyfiyDictionary() {
+	public String modifiyDictionary() {
 		return "redirect:/dictionary";
 	}
 }
