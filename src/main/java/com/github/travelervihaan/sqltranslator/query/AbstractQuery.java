@@ -57,9 +57,15 @@ public abstract class AbstractQuery implements Query {
 		return statementList;
 	}
 
-	void checkAllDictionary(){
-		if(getDictionaryService().compareWord(getDictionaryService().getByName("all"),getStatement().get(0)))
-			appendToStringBuilder("* FROM");
+	boolean checkAllDictionary(){
+		if(getDictionaryService().compareWord(getDictionaryService().getByName("all"),getStatement().get(0))) {
+			appendToStringBuilder("* FROM ");
+			getStatement().remove(0);
+			getStatement().remove(0);
+			appendToStringBuilder(getStatement().get(0));
+			return true;
+		}else
+			return false;
 	}
 
 	boolean isWordInDictionary(String dictionaryName){

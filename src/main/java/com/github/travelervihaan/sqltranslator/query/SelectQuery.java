@@ -8,7 +8,9 @@ public class SelectQuery extends AbstractQuery {
 	
 	@Override
 	public void prepareQuery() {
-		checkAllDictionary();
+		if(checkAllDictionary())
+			return;
+		
 	}
 
 }

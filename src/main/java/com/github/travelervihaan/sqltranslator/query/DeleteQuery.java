@@ -8,12 +8,12 @@ public class DeleteQuery extends AbstractQuery{
 
 	@Override
 	public void prepareQuery() {
-		checkAllDictionary();
 		if(isWordInDictionary("table")) {
 			prepareDropTableQuery();
 			return;
 		}
-
+		if(checkAllDictionary())
+			return;
 
 	}
 
