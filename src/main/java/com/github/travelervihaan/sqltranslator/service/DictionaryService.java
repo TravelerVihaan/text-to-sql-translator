@@ -35,10 +35,15 @@ public class DictionaryService {
 	}
 	
 	public boolean compareWord(Dictionary dictionary, String word) {
-		for(String dictionaryWord: dictionary.getDictionaryWords()){
-			if(dictionaryWord.equalsIgnoreCase(word))
-				return true;
+		try {
+			for (String dictionaryWord : dictionary.getDictionaryWords()) {
+				if (dictionaryWord.equalsIgnoreCase(word))
+					return true;
+			}
+			return false;
+		}catch(MongoSocketException e){
+			System.err.println("[ERROR] Problem with database connection!\n");
+			return false;
 		}
-		return false;
 	}
 }

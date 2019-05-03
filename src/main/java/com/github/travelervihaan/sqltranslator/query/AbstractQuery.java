@@ -6,7 +6,7 @@ public abstract class AbstractQuery implements Query {
 	private String preparedQuery;
 	private StringBuilder stringBuilder;
 	
-	public AbstractQuery(String[] statement) {
+	AbstractQuery(String[] statement) {
 		this.statement = statement;
 	}
 
@@ -22,8 +22,8 @@ public abstract class AbstractQuery implements Query {
 		preparedQuery = stringBuilder.toString();
 	}
 
-	protected void appendToStringBuilder() {
-		// TODO Auto-generated method stub
+	protected void appendToStringBuilder(String textToAppend) {
+		stringBuilder.append(textToAppend);
 	}
 	
 	protected void setStatement(String[] statement) {

@@ -10,6 +10,7 @@ public class QueryFactory {
 	private final String SELECT = "select";
 	private final String DELETE = "delete";
 	private final String UPDATE = "update";
+	private final String CREATE = "create";
 	private DictionaryService dictionaryService;
 	
 	public QueryFactory() {
@@ -30,15 +31,15 @@ public class QueryFactory {
 		
 		if(compareFirstWord(UPDATE, firstWord))
 			return new UpdateQuery(splittedStatement);
+
+		if(compareFirstWord(CREATE, firstWord))
+			return new CreateQuery(splittedStatement);
 		return null;
 	}
 	
 	private boolean compareFirstWord(String queryType, String firstWord) {
 		try {
-			if(dictionaryService.compareWord(dictionaryService.getByName(queryType), firstWord))
-				return true;
-			else
-				return false;
+			return dictionaryService.compareWord(dictionaryService.getByName(queryType), firstWord);
 		}catch(MongoSocketException e) {
 			System.err.println("[ERROR] Problem with database connection!\n");
 			return false;
