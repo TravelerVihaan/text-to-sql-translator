@@ -8,7 +8,21 @@ public class DeleteQuery extends AbstractQuery{
 
 	@Override
 	public void prepareQuery() {
-		// TODO Auto-generated method stub
+		checkAllDictionary();
+		if(getDictionaryService().compareWord(getDictionaryService().getByName("table"),getStatement().get(0))) {
+			prepareDropTableQuery();
+			return;
+		}
+
+
 	}
+
+	void prepareDropTableQuery(){
+		getStatement().remove(0);
+		setStringBuilder(new StringBuilder("DROP TABLE "));
+		appendToStringBuilder(getStatement().get(0));
+	}
+
+
 
 }
