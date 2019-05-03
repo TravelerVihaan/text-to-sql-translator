@@ -18,6 +18,7 @@ public class TranslatorService {
 		splitStatement();
 		query = queryFactory.createSpecifiedQuery(this.getFirstWord(), this.getSplittedStatement());
 		query.prepareQuery();
+		this.naturalLanguageStatement = query.getPreparedQuery();
 	}
 
 	private void splitStatement(){

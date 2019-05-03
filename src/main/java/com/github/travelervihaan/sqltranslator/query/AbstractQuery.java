@@ -1,13 +1,18 @@
 package com.github.travelervihaan.sqltranslator.query;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public abstract class AbstractQuery implements Query {
 	
-	protected String[] statement;
+	protected List<String> statement;
 	private String preparedQuery;
 	private StringBuilder stringBuilder;
 	
 	AbstractQuery(String[] statement) {
-		this.statement = statement;
+		this.statement = new ArrayList<>(Arrays.asList(statement));
+		stringBuilder = new StringBuilder();
 	}
 
 	@Override
@@ -26,11 +31,11 @@ public abstract class AbstractQuery implements Query {
 		stringBuilder.append(textToAppend);
 	}
 	
-	protected void setStatement(String[] statement) {
+	protected void setStatement(List<String> statement) {
 		this.statement = statement;
 	}
 	
-	protected String[] getStatement() {
+	protected List<String> getStatement() {
 		return statement;
 	}
 
