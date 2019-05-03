@@ -6,13 +6,14 @@ import java.util.List;
 
 public abstract class AbstractQuery implements Query {
 	
-	protected List<String> statement;
+	protected List<String> statementList;
 	private String preparedQuery;
 	private StringBuilder stringBuilder;
 	
-	AbstractQuery(String[] statement) {
-		this.statement = new ArrayList<>(Arrays.asList(statement));
-		stringBuilder = new StringBuilder();
+	AbstractQuery(String[] statement, String startingWord) {
+		this.statementList = new ArrayList<>(Arrays.asList(statement));
+		stringBuilder = new StringBuilder(startingWord);
+		statementList.remove(0);
 	}
 
 	@Override
@@ -32,11 +33,11 @@ public abstract class AbstractQuery implements Query {
 	}
 	
 	protected void setStatement(List<String> statement) {
-		this.statement = statement;
+		this.statementList = statementList;
 	}
 	
 	protected List<String> getStatement() {
-		return statement;
+		return statementList;
 	}
 
 }

@@ -3,7 +3,7 @@ package com.github.travelervihaan.sqltranslator.query;
 public class UpdateQuery extends AbstractQuery {
 	
 	public UpdateQuery(String[] statement) {
-		super(statement);
+		super(statement, "UPDATE ");
 	}
 	
 	@Override

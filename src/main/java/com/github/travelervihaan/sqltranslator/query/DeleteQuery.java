@@ -3,7 +3,7 @@ package com.github.travelervihaan.sqltranslator.query;
 public class DeleteQuery extends AbstractQuery{
 	
 	public DeleteQuery(String[] statement) {
-		super(statement);
+		super(statement, "DELETE ");
 	}
 
 	@Override
