@@ -26,10 +26,11 @@ public abstract class AbstractQuery implements Query {
 
 	@Override
 	public String getPreparedQuery() {
+		convertToPreparedQuery();
 		return preparedQuery;
 	}
 	
-	protected void convertToPreparedQuery() {
+	private void convertToPreparedQuery() {
 		preparedQuery = stringBuilder.toString();
 	}
 
@@ -61,12 +62,9 @@ public abstract class AbstractQuery implements Query {
 			appendToStringBuilder("* FROM");
 	}
 
-	protected boolean isWordInDictionary(String dictionaryName){
+	boolean isWordInDictionary(String dictionaryName){
 		try {
-			if (getDictionaryService().compareWord(getDictionaryService().getByName(dictionaryName), getStatement().get(0)))
-				return true;
-			else
-				return false;
+			return getDictionaryService().compareWord(getDictionaryService().getByName(dictionaryName), getStatement().get(0));
 		}catch(MongoSocketException e){
 			System.err.println("[ERROR] Problem with database connection!\n");
 			return false;

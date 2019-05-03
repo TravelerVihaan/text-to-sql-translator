@@ -2,14 +2,14 @@ package com.github.travelervihaan.sqltranslator.query;
 
 public class DeleteQuery extends AbstractQuery{
 	
-	public DeleteQuery(String[] statement) {
+	DeleteQuery(String[] statement) {
 		super(statement, "DELETE ");
 	}
 
 	@Override
 	public void prepareQuery() {
 		checkAllDictionary();
-		if(getDictionaryService().compareWord(getDictionaryService().getByName("table"),getStatement().get(0))) {
+		if(isWordInDictionary("table")) {
 			prepareDropTableQuery();
 			return;
 		}
@@ -17,7 +17,7 @@ public class DeleteQuery extends AbstractQuery{
 
 	}
 
-	void prepareDropTableQuery(){
+	private void prepareDropTableQuery(){
 		getStatement().remove(0);
 		setStringBuilder(new StringBuilder("DROP TABLE "));
 		appendToStringBuilder(getStatement().get(0));
