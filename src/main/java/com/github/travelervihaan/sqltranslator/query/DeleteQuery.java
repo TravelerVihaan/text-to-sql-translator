@@ -23,8 +23,4 @@ public class DeleteQuery extends AbstractQuery{
 		appendToStringBuilder(getStatement().get(0));
 	}
 
-
-
-
-
 }

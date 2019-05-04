@@ -18,6 +18,26 @@ public class SelectQuery extends AbstractQuery {
 		popFirstElementFromList();
 		appendToStringBuilder(getStatement().get(0)+" ");
 		prepareConditionForQuery();
+		prepareSortingForQuery();
+	}
+
+	private void prepareSortingForQuery(){
+		//if(getStatement.get(0).equalsIgnoreCase("posortowane")
+		if(isWordInDictionary("sort")){
+			appendToStringBuilder("ORDER BY ");
+			popFirstElementFromList();
+			if(isAscendingOrDescending(getStatement().get(0)))
+				checkAscendingOrDescending();
+
+		}
+	}
+
+	private boolean isAscendingOrDescending(String word){
+		return (word.equalsIgnoreCase("rosnąco")||word.equalsIgnoreCase("rosnaco")||word.equalsIgnoreCase("malejąco")||word.equalsIgnoreCase("malejaco"));
+	}
+
+	private void checkAscendingOrDescending(){
+		
 	}
 
 	private void prepareElementsToSelect(){
