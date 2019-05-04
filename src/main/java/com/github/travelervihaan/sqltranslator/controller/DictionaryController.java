@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,9 +26,11 @@ public class DictionaryController {
 		model.addAttribute("dictionaries", dictionaryService.getAllDictionaries());
 		return "dictionary/dictionary";
 	}
-	
-	@PostMapping(value= {"/",""})
-	public String modifiyDictionary() {
-		return "redirect:/dictionary";
+
+	@GetMapping("/{dictionaryName}")
+	public String specifiedDictionaryGet(Model model, @PathVariable(value = "dictionaryName") String dictName){
+		model.addAttribute("dictionary",dictionaryService.getByName(dictName));
+		return "dictionary/specifieddictionary";
 	}
+
 }
