@@ -12,9 +12,25 @@ public class DeleteQuery extends AbstractQuery{
 			prepareDropTableQuery();
 			return;
 		}
-		if(checkAllDictionary())
-			return;
+		if(checkAllDictionary()) {
+			prepareConditionForQuery();
+		}
+	}
 
+	@Override
+	void prepareConditionForQuery() {
+		if(isWordInDictionary("where")){
+			getStatement().remove(0);
+			appendToStringBuilder("WHERE ");
+			appendToStringBuilder(getStatement().get(0));
+			appendToStringBuilder(" = ");
+			getStatement().remove(0);
+			if(isNumeric(getStatement().get(0)))
+				appendToStringBuilder("'"+getStatement().get(0)+"'");
+			else
+				appendToStringBuilder(getStatement().get(0));
+			getStatement().remove(0);
+		}
 	}
 
 	private void prepareDropTableQuery(){
@@ -22,6 +38,8 @@ public class DeleteQuery extends AbstractQuery{
 		setStringBuilder(new StringBuilder("DROP TABLE "));
 		appendToStringBuilder(getStatement().get(0));
 	}
+
+
 
 
 

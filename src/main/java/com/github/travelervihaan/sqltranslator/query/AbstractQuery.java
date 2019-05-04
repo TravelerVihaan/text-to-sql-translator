@@ -24,8 +24,11 @@ public abstract class AbstractQuery implements Query {
 	@Override
 	public abstract void prepareQuery();
 
+	abstract void prepareConditionForQuery();
+
 	@Override
 	public String getPreparedQuery() {
+		appendToStringBuilder(";");
 		convertToPreparedQuery();
 		return preparedQuery;
 	}
@@ -47,7 +50,7 @@ public abstract class AbstractQuery implements Query {
 		this.dictionaryService = dictService;
 	}
 
-	DictionaryService getDictionaryService(){ return dictionaryService; }
+	private DictionaryService getDictionaryService(){ return dictionaryService; }
 	
 	protected void setStatement(List<String> statementList) {
 		this.statementList = statementList;
@@ -59,13 +62,24 @@ public abstract class AbstractQuery implements Query {
 
 	boolean checkAllDictionary(){
 		if(getDictionaryService().compareWord(getDictionaryService().getByName("all"),getStatement().get(0))) {
-			appendToStringBuilder("* FROM ");
+			appendToStringBuilder("FROM ");
+			//z
 			getStatement().remove(0);
+			//tabeli
 			getStatement().remove(0);
 			appendToStringBuilder(getStatement().get(0));
 			return true;
 		}else
 			return false;
+	}
+
+	boolean isNumeric(String str) {
+		try {
+			Double.parseDouble(str);
+			return true;
+		} catch(NumberFormatException e){
+			return false;
+		}
 	}
 
 	boolean isWordInDictionary(String dictionaryName){
