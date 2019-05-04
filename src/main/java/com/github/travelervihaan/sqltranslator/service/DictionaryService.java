@@ -29,6 +29,29 @@ public class DictionaryService {
 			return dictionaries;
 		}
 	}
+
+	public void addWordToDictionary(String dictionaryName, String word){
+		try {
+			if (word != "" && word.length() > 0) {
+				if(isWordAlreadyExist(dictionaryName, word)){
+					Dictionary dictionary = dictionaryRepository.findByName(dictionaryName);
+					dictionary.getDictionaryWords().add(word);
+					dictionaryRepository.save(dictionary);
+				}
+			}
+		}catch(IllegalArgumentException e) {
+			System.err.println("Niepoprawne słowo!!");
+		}
+	}
+
+	private boolean isWordAlreadyExist(String dictionaryName, String word){
+		List<String> wordsList = dictionaryRepository.findByName(dictionaryName).getDictionaryWords();
+		for(String wordToCheck : wordsList) {
+			if(wordToCheck.equalsIgnoreCase(word))
+				return false;
+		}
+		return true;
+	}
 	
 	public Dictionary getByName(String dictionaryName) {
 		return dictionaryRepository.findByName(dictionaryName);
