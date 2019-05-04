@@ -18,17 +18,24 @@ public class SelectQuery extends AbstractQuery {
 		popFirstElementFromList();
 		appendToStringBuilder(getStatement().get(0)+" ");
 		prepareConditionForQuery();
-		prepareSortingForQuery();
+		try {
+			prepareSortingForQuery();
+		}catch(IndexOutOfBoundsException e){
+			System.err.println("Wykroczono poza listę!");
+		}
 	}
 
-	private void prepareSortingForQuery(){
+	private void prepareSortingForQuery() throws IndexOutOfBoundsException{
 		//if(getStatement.get(0).equalsIgnoreCase("posortowane")
 		if(isWordInDictionary("sort")){
 			appendToStringBuilder("ORDER BY ");
 			popFirstElementFromList();
-			if(isAscendingOrDescending(getStatement().get(0)))
-				checkAscendingOrDescending();
-
+			if(isAscendingOrDescending(getStatement().get(0))) {
+				appendToStringBuilder(getStatement().get(2));
+				appendToStringBuilder(checkAscendingOrDescending(getStatement().get(0)));
+				return;
+			}
+			appendToStringBuilder(getStatement().get(1));
 		}
 	}
 
@@ -36,8 +43,13 @@ public class SelectQuery extends AbstractQuery {
 		return (word.equalsIgnoreCase("rosnąco")||word.equalsIgnoreCase("rosnaco")||word.equalsIgnoreCase("malejąco")||word.equalsIgnoreCase("malejaco"));
 	}
 
-	private void checkAscendingOrDescending(){
-		
+	private String checkAscendingOrDescending(String word){
+		if(word.equalsIgnoreCase("rosnąco")||word.equalsIgnoreCase("rosnaco"))
+			return " ASC";
+		else if(word.equalsIgnoreCase("malejąco")||word.equalsIgnoreCase("malejaco"))
+			return " DESC";
+		else
+			return "";
 	}
 
 	private void prepareElementsToSelect(){
