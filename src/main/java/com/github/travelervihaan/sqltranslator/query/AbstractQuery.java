@@ -118,7 +118,7 @@ public abstract class AbstractQuery implements Query {
 		}
 	}
 
-	private void appendNumericOrStringToStatement(){
+	void appendNumericOrStringToStatement(){
 		if (isNumeric(getStatement().get(0)))
 			appendToStringBuilder("'" + getStatement().get(0) + "' ");
 		else
