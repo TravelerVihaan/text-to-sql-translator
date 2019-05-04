@@ -17,22 +17,6 @@ public class DeleteQuery extends AbstractQuery{
 		}
 	}
 
-	@Override
-	void prepareConditionForQuery() {
-		if(isWordInDictionary("where")){
-			popFirstElementFromList();
-			appendToStringBuilder("WHERE ");
-			appendToStringBuilder(getStatement().get(0));
-			appendToStringBuilder(" = ");
-			popFirstElementFromList();
-			if(isNumeric(getStatement().get(0)))
-				appendToStringBuilder("'"+getStatement().get(0)+"'");
-			else
-				appendToStringBuilder(getStatement().get(0));
-			popFirstElementFromList();
-		}
-	}
-
 	private void prepareDropTableQuery(){
 		popFirstElementFromList();
 		setStringBuilder(new StringBuilder("DROP TABLE "));

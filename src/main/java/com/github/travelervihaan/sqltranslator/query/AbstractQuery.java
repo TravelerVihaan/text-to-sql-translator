@@ -24,8 +24,6 @@ public abstract class AbstractQuery implements Query {
 	@Override
 	public abstract void prepareQuery();
 
-	abstract void prepareConditionForQuery();
-
 	@Override
 	public String getPreparedQuery() {
 		appendToStringBuilder(";");
@@ -73,13 +71,35 @@ public abstract class AbstractQuery implements Query {
 			return false;
 	}
 
-	boolean isNumeric(String str) {
+	void prepareConditionForQuery(){
+		if(isWordInDictionary("where")){
+			popFirstElementFromList();
+			appendToStringBuilder("WHERE ");
+			do {
+				appendToStringBuilder(getStatement().get(0));
+				appendToStringBuilder(" = ");
+				popFirstElementFromList();
+				appendNumericOrStringToStatement();
+				//TODO CHECK AND OR
+			}while(getStatement().size()>0);
+		}
+	}
+
+	private boolean isNumeric(String str) {
 		try {
 			Double.parseDouble(str);
 			return true;
 		} catch(NumberFormatException e){
 			return false;
 		}
+	}
+
+	private void appendNumericOrStringToStatement(){
+		if (isNumeric(getStatement().get(0)))
+			appendToStringBuilder("'" + getStatement().get(0) + "' ");
+		else
+			appendToStringBuilder(getStatement().get(0)+" ");
+		popFirstElementFromList();
 	}
 
 	boolean isWordInDictionary(String dictionaryName){
