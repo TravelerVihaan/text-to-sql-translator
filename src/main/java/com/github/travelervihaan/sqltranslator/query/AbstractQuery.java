@@ -73,15 +73,39 @@ public abstract class AbstractQuery implements Query {
 
 	void prepareConditionForQuery(){
 		if(isWordInDictionary("where")){
+			//usuwanie "gdzie"
 			popFirstElementFromList();
 			appendToStringBuilder("WHERE ");
 			do {
-				appendToStringBuilder(getStatement().get(0));
-				appendToStringBuilder(" = ");
-				popFirstElementFromList();
+				checkIfStatementIsNegation();
 				appendNumericOrStringToStatement();
-				//TODO CHECK AND OR
+				if(getStatement().get(0).equalsIgnoreCase("i"))
+					appendToStringBuilder("AND ");
+				else if(getStatement().get(0).equalsIgnoreCase("lub"))
+					appendToStringBuilder("OR ");
+				else
+					break;
 			}while(getStatement().size()>0);
+		}
+		appendToStringBuilder(" ");
+	}
+
+	private void checkIfStatementIsNegation(){
+		if(getStatement().get(1).equalsIgnoreCase("nie")){
+			appendToStringBuilder("NOT " + getStatement().get(0));
+			//usuwanie nazwy pola
+			popFirstElementFromList();
+			appendToStringBuilder(" = ");
+			//usuwanie "nie wynosi"
+			popFirstElementFromList();
+			popFirstElementFromList();
+		}else{
+			//nazwa pola
+			appendToStringBuilder(getStatement().get(0));
+			popFirstElementFromList();
+			appendToStringBuilder(" = ");
+			//usuwanie "wynosi"
+			popFirstElementFromList();
 		}
 	}
 
