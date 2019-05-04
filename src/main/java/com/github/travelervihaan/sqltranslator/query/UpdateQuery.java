@@ -11,4 +11,9 @@ public class UpdateQuery extends AbstractQuery {
 		// TODO Auto-generated method stub
 	}
 
+	@Override
+	void prepareConditionForQuery() {
+
+	}
+
 }

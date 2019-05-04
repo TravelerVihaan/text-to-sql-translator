@@ -61,12 +61,12 @@ public abstract class AbstractQuery implements Query {
 	}
 
 	boolean checkAllDictionary(){
-		if(getDictionaryService().compareWord(getDictionaryService().getByName("all"),getStatement().get(0))) {
+		if(isWordInDictionary("all")) {
 			appendToStringBuilder("FROM ");
 			//z
-			getStatement().remove(0);
+			popFirstElementFromList();
 			//tabeli
-			getStatement().remove(0);
+			popFirstElementFromList();
 			appendToStringBuilder(getStatement().get(0));
 			return true;
 		}else
@@ -89,6 +89,10 @@ public abstract class AbstractQuery implements Query {
 			System.err.println("[ERROR] Problem with database connection!\n");
 			return false;
 		}
+	}
+
+	void popFirstElementFromList(){
+		getStatement().remove(0);
 	}
 
 }

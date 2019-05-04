@@ -8,4 +8,9 @@ public class CreateQuery extends AbstractQuery {
     public void prepareQuery() {
         //TODO
     }
+
+    @Override
+    void prepareConditionForQuery() {
+
+    }
 }

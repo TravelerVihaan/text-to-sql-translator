@@ -20,21 +20,21 @@ public class DeleteQuery extends AbstractQuery{
 	@Override
 	void prepareConditionForQuery() {
 		if(isWordInDictionary("where")){
-			getStatement().remove(0);
+			popFirstElementFromList();
 			appendToStringBuilder("WHERE ");
 			appendToStringBuilder(getStatement().get(0));
 			appendToStringBuilder(" = ");
-			getStatement().remove(0);
+			popFirstElementFromList();
 			if(isNumeric(getStatement().get(0)))
 				appendToStringBuilder("'"+getStatement().get(0)+"'");
 			else
 				appendToStringBuilder(getStatement().get(0));
-			getStatement().remove(0);
+			popFirstElementFromList();
 		}
 	}
 
 	private void prepareDropTableQuery(){
-		getStatement().remove(0);
+		popFirstElementFromList();
 		setStringBuilder(new StringBuilder("DROP TABLE "));
 		appendToStringBuilder(getStatement().get(0));
 	}

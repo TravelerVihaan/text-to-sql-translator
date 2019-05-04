@@ -13,4 +13,9 @@ public class SelectQuery extends AbstractQuery {
 		//TODO
 	}
 
+	@Override
+	void prepareConditionForQuery() {
+
+	}
+
 }
