@@ -1,5 +1,6 @@
 package com.github.travelervihaan.sqltranslator.controller;
 
+import com.github.travelervihaan.sqltranslator.model.Dictionary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.github.travelervihaan.sqltranslator.service.DictionaryService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/dictionary")
@@ -23,7 +27,11 @@ public class DictionaryController {
 	
 	@GetMapping(value={"/",""})
 	public String dictionaries(Model model) {
-		model.addAttribute("dictionaries", dictionaryService.getAllDictionaries());
+		List<Dictionary> dictionaries = dictionaryService.getAllDictionaries();
+		List<String> dictionaryNames = new ArrayList<>();
+		for(Dictionary dictionary: dictionaries)
+			dictionaryNames.add(dictionary.getName());
+		model.addAttribute("dictionaries", dictionaryNames);
 		return "dictionary/dictionary";
 	}
 
