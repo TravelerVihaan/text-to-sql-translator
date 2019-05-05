@@ -12,13 +12,13 @@ public class QueryFactory {
 	private final String UPDATE = "update";
 	private final String CREATE = "create";
 	private DictionaryService dictionaryService;
-	
-	public QueryFactory() {
+
+	@Autowired
+	public QueryFactory(DictionaryService dictionaryService) {
 		setDictionaryService(dictionaryService);
 	}
-	
-	@Autowired
-	public void setDictionaryService(DictionaryService dictionaryService) {
+
+	private void setDictionaryService(DictionaryService dictionaryService) {
 		this.dictionaryService = dictionaryService;
 	}
 	

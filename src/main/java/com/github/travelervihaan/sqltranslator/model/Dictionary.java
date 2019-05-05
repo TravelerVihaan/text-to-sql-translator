@@ -13,6 +13,11 @@ public class Dictionary {
     private String name;
     private List<String> dictionaryWords;
 
+    public Dictionary(String name, List<String> dictionaryWords){
+        this.name = name;
+        this.dictionaryWords = dictionaryWords;
+    }
+
     public String getName() {
         return name;
     }

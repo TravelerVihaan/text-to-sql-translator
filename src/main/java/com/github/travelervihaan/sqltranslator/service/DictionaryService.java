@@ -18,6 +18,10 @@ public class DictionaryService {
 	public DictionaryService(DictionaryRepository dictionaryRepository) {
 		this.dictionaryRepository = dictionaryRepository;
 	}
+
+	public Dictionary getByName(String dictionaryName) {
+		return dictionaryRepository.findByName(dictionaryName);
+	}
 	
 	public List<Dictionary> getAllDictionaries() {
 		List<Dictionary> dictionaries = null;
@@ -32,7 +36,7 @@ public class DictionaryService {
 
 	public void addWordToDictionary(String dictionaryName, String word){
 		try {
-			if (word != "" && word.length() > 0) {
+			if (!word.equals("") && word.length() > 0) {
 				if(isWordAlreadyExist(dictionaryName, word)){
 					Dictionary dictionary = dictionaryRepository.findByName(dictionaryName);
 					dictionary.getDictionaryWords().add(word);
@@ -51,10 +55,6 @@ public class DictionaryService {
 				return false;
 		}
 		return true;
-	}
-	
-	public Dictionary getByName(String dictionaryName) {
-		return dictionaryRepository.findByName(dictionaryName);
 	}
 	
 	public boolean compareWord(Dictionary dictionary, String word) {
