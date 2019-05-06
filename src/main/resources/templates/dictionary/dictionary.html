@@ -26,7 +26,9 @@
 						<select class="form-control" id="dictionaryName" name="dictionaryName">
   							<option th:each="dict: ${dictionaries}" th:value="${dict}" th:utext="${dict}" />
 						</select>
-						<button class="btn btn-primary btn-block" type="submit">Select dictionary</button>
+						<div class="input-group-append">
+							<button class="btn btn-primary" type="submit">Select dictionary</button>
+						</div>
 					</form>
 				</div>
 				<div th:if="${dictionaries.isEmpty()}">
