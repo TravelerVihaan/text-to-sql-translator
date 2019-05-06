@@ -36,14 +36,25 @@ public class DictionaryService {
 		}
 	}
 
-	public void addNewDictionary(String dictionaryName, String words){
-		List<String> wordsList = new ArrayList<>(Arrays.asList(words.split("")));
-		Dictionary dictionary = new Dictionary(dictionaryName, wordsList);
+	public void addNewDictionary(String dictionaryName, String words) {
 		try {
-			dictionaryRepository.save(dictionary);
+			if (isFormCorrectlyFilled(dictionaryName) && isFormCorrectlyFilled(words)) {
+				List<String> wordsList = new ArrayList<>(Arrays.asList(words.split(" ")));
+				Dictionary dictionary = new Dictionary(dictionaryName, wordsList);
+				dictionaryRepository.save(dictionary);
+			}
 		}catch(MongoSocketException e){
 			System.err.println("[ERROR] Problem with database connection!\n");
+		}catch(IllegalArgumentException e){
+			System.err.println("[ERROR] Form was filled incorrect!\n");
 		}
+	}
+
+	private boolean isFormCorrectlyFilled(String dictName) throws IllegalArgumentException{
+		if(dictName.equals("")||dictName.length()<1) {
+			throw new IllegalArgumentException();
+		}else
+			return true;
 	}
 
 	public void addWordToDictionary(String dictionaryName, String word){
