@@ -22,7 +22,7 @@
 		<div class="row">
 			<div class="col-sm-10">
 				<div th:if="not ${dictionaries.isEmpty()}">
-					<form th:action="@{/dictionarypanel}" method="POST">
+					<form th:action="@{/dictionarypanel}" method="GET">
 						<select class="form-control" id="dictionaryName" name="dictionaryName">
   							<option th:each="dict: ${dictionaries}" th:value="${dict}" th:utext="${dict}" />
 						</select>
