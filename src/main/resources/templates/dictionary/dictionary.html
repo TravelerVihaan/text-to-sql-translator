@@ -21,6 +21,7 @@
 		
 		<div class="row">
 			<div class="col-sm-10">
+				<p class="h2"> Please, choose dictionary to edit it:</p>
 				<div th:if="not ${dictionaries.isEmpty()}">
 					<form th:action="@{/dictionarypanel}" method="GET">
 						<select class="form-control" id="dictionaryName" name="dictionaryName">
@@ -32,13 +33,16 @@
 					</form>
 				</div>
 				<div th:if="${dictionaries.isEmpty()}">
-					Please, first choose dictionary
+					There is not any dictionary!
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-10">
-				<!-- to do wyswietlanie -->
+				<p class="h2"> Fill the form to add new dictionary to database:</p>
+					<form th:action="@{/addnewdictionary}" method="POST">
+
+					</form>
 			</div>
 		</div>
 	</div>

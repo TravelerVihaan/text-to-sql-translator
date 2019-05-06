@@ -35,6 +35,12 @@ public class DictionaryController {
 		return "dictionary/dictionary";
 	}
 
+	@PostMapping("/addnewdictionary")
+	public String addNewDictionary(Model model, @RequestParam String dictionaryName, @RequestParam String words){
+		dictionaryService.addNewDictionary(dictionaryName,words);
+		return "redirect:/";
+	}
+
 	@GetMapping("/dictionarypanel")
 	public String specifiedDictionaryGet(Model model, @RequestParam(value = "dictionaryName") String dictName){
 		model.addAttribute("dictionary",dictionaryService.getByName(dictName));

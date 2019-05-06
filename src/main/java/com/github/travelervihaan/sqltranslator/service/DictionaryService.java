@@ -1,5 +1,7 @@
 package com.github.travelervihaan.sqltranslator.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,16 @@ public class DictionaryService {
 		}catch(MongoSocketException e) {
 			System.err.println("[ERROR] Problem with database connection!\n");
 			return dictionaries;
+		}
+	}
+
+	public void addNewDictionary(String dictionaryName, String words){
+		List<String> wordsList = new ArrayList<>(Arrays.asList(words.split("")));
+		Dictionary dictionary = new Dictionary(dictionaryName, wordsList);
+		try {
+			dictionaryRepository.save(dictionary);
+		}catch(MongoSocketException e){
+			System.err.println("[ERROR] Problem with database connection!\n");
 		}
 	}
 
