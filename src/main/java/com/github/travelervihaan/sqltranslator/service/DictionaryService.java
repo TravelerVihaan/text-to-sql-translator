@@ -67,7 +67,21 @@ public class DictionaryService {
 				}
 			}
 		}catch(IllegalArgumentException e) {
-			System.err.println("Niepoprawne słowo!!");
+			System.err.println("[ERROR] Niepoprawne słowo!!");
+		}catch(MongoSocketException e) {
+			System.err.println("[ERROR] Problem with database connection!\n");
+		}
+	}
+	
+	public void deleteWordFromDictionary(String dictionaryName, String word) {
+		try {
+			if(isWordAlreadyExist(dictionaryName,word)){
+				Dictionary dictionary = dictionaryRepository.findByName(dictionaryName);
+				dictionary.getDictionaryWords().remove(word);
+				dictionaryRepository.save(dictionary);
+			}
+		}catch(MongoSocketException e) {
+			System.err.println("[ERROR] Podane slowo nie istnieje w tym slowniku!!");
 		}
 	}
 

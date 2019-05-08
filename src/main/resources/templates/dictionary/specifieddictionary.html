@@ -20,6 +20,53 @@
                 </div>
             </div>
         </div>
+        
+        <div class="row">
+			<div class="col-sm-10">
+			
+				<form th:action="@{/addword}" method="post">
+					<div class="form-group">
+						<label for="AddWord">Add word to dictionary:</label>
+						<input type="hidden" name="dictionaryName" value="${dictionary.getName()}"/>
+						<input type="text" class="form-control" name="word" placeholder="Word"/>
+						<button class="btn btn-primary btn-block" type="submit">Add</button>
+					</div>
+				</form>
+				<br>
+				
+				<form th:action="@{/deleteword}" method="post">
+					<div class="form-group">
+						<label for="DeleteWord">Delete word from dictionary:</label>
+						 <input type="hidden" name="dictionaryName" value="${dictionary.getName()}"/>
+						<input type="text" class="form-control" name="word" placeholder="Word"/>
+						<button class="btn btn-primary btn-block" type="submit">Delete</button>
+					</div>
+				</form>	
+				<br>
+				
+				<div th:if="not ${domainList.isEmpty()}">
+        			<h2>Lista domen:</h2>
+        			<table class="table">
+  						<thead class="thead-light">
+            				<tr>
+            					<th>Domena</th>
+            				</tr>
+            			</thead>
+            			<tbody>
+            				<tr th:each="Domain: ${domainList}" th:object="${Domain}">
+            				<!-- <td th:text="*{id}">1</td> -->
+                			<td th:text="*{domainName}">example</td>
+            				</tr>
+            			</tbody>
+        			</table>
+    			</div>
+    			
+    			<div th:if="${domainList.isEmpty()}">
+        			<h1>There is no data yet :(</h1>
+    			</div>
+	
+			</div>
+		</div>
 
     </div>
 
