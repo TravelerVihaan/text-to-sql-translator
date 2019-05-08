@@ -15,12 +15,9 @@
         <div class="row">
             <div class="col-sm-10">
                 <a th:href="@{/dictionary}"><button class="btn btn-dark btn-sm" type="submit"><------ Back</button></a>
-                <div class="form-group">
-                	
-                </div>
             </div>
         </div>
-        
+        <br>
         <div class="row">
 			<div class="col-sm-10">
 			
@@ -44,25 +41,25 @@
 				</form>	
 				<br>
 				
-				<div th:if="not ${domainList.isEmpty()}">
-        			<h2>Lista domen:</h2>
+				<div th:if="not ${dictionary.getDictionaryWords().isEmpty()}">
+					<p class="h2">Word List in dictionary: <span th:utext="${dictionary.getName()}">Dictionary name</span></p>
         			<table class="table">
   						<thead class="thead-light">
             				<tr>
-            					<th>Domena</th>
+            					<th>Word</th>
             				</tr>
             			</thead>
             			<tbody>
-            				<tr th:each="Domain: ${domainList}" th:object="${Domain}">
+            				<tr th:each="word: ${dictionary.getDictionaryWords()}" th:object="${String}">
             				<!-- <td th:text="*{id}">1</td> -->
-                			<td th:text="*{domainName}">example</td>
+                			<td th:text="${word}">example</td>
             				</tr>
             			</tbody>
         			</table>
     			</div>
     			
-    			<div th:if="${domainList.isEmpty()}">
-        			<h1>There is no data yet :(</h1>
+    			<div th:if="${dictionary.getDictionaryWords()}">
+        			<p class="h3">There is no data yet :(</p>
     			</div>
 	
 			</div>

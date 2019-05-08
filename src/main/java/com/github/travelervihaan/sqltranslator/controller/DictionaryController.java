@@ -50,13 +50,13 @@ public class DictionaryController {
 	@PostMapping("/addword")
 	public String addWordToDrictionary(@RequestParam String dictionaryName, @RequestParam String word, Model model) {
 		dictionaryService.addWordToDictionary(dictionaryName,word);
-		return "redirect:/specifieddictionary";
+		return "redirect:/dictionarypanel";
 	}
 	
 	@PostMapping("/deleteword")
 	public String deleteWordFromDictionary(@RequestParam String dictionaryName, @RequestParam String word, Model model) {
 		dictionaryService.deleteWordFromDictionary(dictionaryName,word);
-		return "redirect:/specifieddictionary";
+		return "redirect:/dictionarypanel";
 	}
 		
 }
