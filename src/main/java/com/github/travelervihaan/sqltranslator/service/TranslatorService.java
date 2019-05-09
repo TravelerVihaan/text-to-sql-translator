@@ -24,10 +24,12 @@ public class TranslatorService {
 	private void splitStatement(){
 		this.splittedStatement = naturalLanguageStatement.split(" ");
 	}
+
+	public String getNaturalLanguageStatement(){return naturalLanguageStatement;}
 	
-	public String getPreparedQuery() {
-		return query.getPreparedQuery();
-	}
+	//public String getPreparedQuery() {
+	//	return query.getPreparedQuery();
+	//}
 	
 	public String getFirstWord(){
 		return splittedStatement[0];

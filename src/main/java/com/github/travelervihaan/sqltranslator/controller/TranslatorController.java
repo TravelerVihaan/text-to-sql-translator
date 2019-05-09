@@ -27,6 +27,7 @@ public class TranslatorController {
     @RequestMapping("/translate")
     public String translate(@RequestParam String statement, Model model){
     	translatorService.setNaturalLanguageStatement(statement);
+    	model.addAttribute("statement",translatorService.getNaturalLanguageStatement());
         return "redirect:/index";
     }
 }
