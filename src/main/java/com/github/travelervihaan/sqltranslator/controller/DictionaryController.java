@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/dictionary")
 public class DictionaryController {
 	
 	private DictionaryService dictionaryService;
@@ -25,7 +24,7 @@ public class DictionaryController {
 		this.dictionaryService = dictionaryService;
 	}
 	
-	@GetMapping(value={"/",""})
+	@GetMapping("/dictionary")
 	public String dictionaries(Model model) {
 		List<Dictionary> dictionaries = dictionaryService.getAllDictionaries();
 		List<String> dictionaryNames = new ArrayList<>();
@@ -38,7 +37,7 @@ public class DictionaryController {
 	@PostMapping("/addnewdictionary")
 	public String addNewDictionary(Model model, @RequestParam String dictionaryName, @RequestParam String words){
 		dictionaryService.addNewDictionary(dictionaryName,words);
-		return "redirect:/";
+		return "redirect:/dictionary";
 	}
 
 	@GetMapping("/dictionarypanel")
@@ -50,13 +49,13 @@ public class DictionaryController {
 	@PostMapping("/addword")
 	public String addWordToDrictionary(@RequestParam String dictionaryName, @RequestParam String word, Model model) {
 		dictionaryService.addWordToDictionary(dictionaryName,word);
-		return "redirect:/dictionarypanel";
+		return "redirect:/dictionary/specifieddictionary";
 	}
 	
 	@PostMapping("/deleteword")
 	public String deleteWordFromDictionary(@RequestParam String dictionaryName, @RequestParam String word, Model model) {
 		dictionaryService.deleteWordFromDictionary(dictionaryName,word);
-		return "redirect:/dictionarypanel";
+		return "redirect:/dictionary/specifieddictionary";
 	}
 		
 }

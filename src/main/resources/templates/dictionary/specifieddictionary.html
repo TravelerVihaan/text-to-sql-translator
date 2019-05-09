@@ -42,11 +42,11 @@
 				<br>
 				
 				<div th:if="not ${dictionary.getDictionaryWords().isEmpty()}">
-					<p class="h2">Word List in dictionary: <span th:utext="${dictionary.getName()}">Dictionary name</span></p>
-        			<table class="table">
-  						<thead class="thead-light">
-            				<tr>
-            					<th>Word</th>
+								<p class="h2">Word List in dictionary: <span th:utext="${dictionary.getName()}">Dictionary name</span></p>
+								<table class="table">
+									<thead class="thead-light">
+									<tr>
+										<th>Word</th>
             				</tr>
             			</thead>
             			<tbody>
@@ -58,7 +58,7 @@
         			</table>
     			</div>
     			
-    			<div th:if="${dictionary.getDictionaryWords()}">
+    			<div th:if="${dictionary.getDictionaryWords().isEmpty()}">
         			<p class="h3">There is no data yet :(</p>
     			</div>
 	

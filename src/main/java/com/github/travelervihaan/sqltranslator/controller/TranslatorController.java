@@ -19,13 +19,15 @@ public class TranslatorController {
 	}
 
     @RequestMapping("/")
-    public String home(){
-        return "index";
+    public String home(@RequestParam(required = false) String statement, Model model){
+        model.addAttribute("statement", statement);
+	    return "index";
     }
 
     @RequestMapping("/translate")
     public String translate(@RequestParam String statement, Model model){
     	translatorService.setNaturalLanguageStatement(statement);
+    	model.addAttribute("statement",translatorService.getNaturalLanguageStatement());
         return "redirect:/index";
     }
 }
