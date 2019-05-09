@@ -4,10 +4,10 @@ import java.util.List;
 
 public interface Query {
 	
-	public void prepareQuery();
+	void prepareQuery();
 	
-	public String getPreparedQuery();
+	String getPreparedQuery();
 
-	public void setStatement(List<String> statementList);
+	void initQuery(List<String> statement, String firstWord);
 	
 }

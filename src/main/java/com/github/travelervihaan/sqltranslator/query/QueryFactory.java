@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.travelervihaan.sqltranslator.service.DictionaryService;
 import com.mongodb.MongoSocketException;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.Dictionary;
@@ -19,26 +20,43 @@ public class QueryFactory {
 	private DictionaryService dictionaryService;
 
 	@Autowired
-	public QueryFactory(DictionaryService dictionaryService){
+	@Qualifier(value="deleteQuery")
+	Query deleteQuery;
+	@Autowired
+	@Qualifier(value="selectQuery")
+	Query selectQuery;
+	@Autowired
+	@Qualifier(value="updateQuery")
+	Query updateQuery;
+	@Autowired
+	@Qualifier(value="createQuery")
+	Query createQuery;
 
+	@Autowired
+	public QueryFactory(DictionaryService dictionaryService){
 		this.dictionaryService = dictionaryService;
 	}
 	
 	public Query createSpecifiedQuery(String firstWord, List<String> splittedStatement) {
 
-		if(compareFirstWord(SELECT, firstWord))
-			return new SelectQuery(splittedStatement);
-		
-		if(compareFirstWord(DELETE, firstWord))
-			return new DeleteQuery(splittedStatement);
-		
-		if(compareFirstWord(UPDATE, firstWord))
-			return new UpdateQuery(splittedStatement);
+		if(compareFirstWord(SELECT, firstWord)) {
+			selectQuery.initQuery(splittedStatement, firstWord);
+			return selectQuery;
+		}
+		if(compareFirstWord(DELETE, firstWord)) {
+			deleteQuery.initQuery(splittedStatement, firstWord);
+			return deleteQuery;
+		}
+		if(compareFirstWord(UPDATE, firstWord)) {
+			updateQuery.initQuery(splittedStatement, firstWord);
+			return updateQuery;
+		}
+		if(compareFirstWord(CREATE, firstWord)) {
+			createQuery.initQuery(splittedStatement, firstWord);
+			return createQuery;
+		}
 
-		if(compareFirstWord(CREATE, firstWord))
-			return new CreateQuery(splittedStatement);
-
-		return new CreateQuery(splittedStatement);
+		return createQuery;
 	}
 	
 	private boolean compareFirstWord(String queryType, String firstWord) {

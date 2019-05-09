@@ -13,20 +13,20 @@ public abstract class AbstractQuery implements Query {
 	private StringBuilder stringBuilder;
 	private DictionaryService dictionaryService;
 
+	@Autowired
+	AbstractQuery(DictionaryService dictionaryService){
+		this.dictionaryService = dictionaryService;
+	}
 
-	AbstractQuery(List<String> statement, String startingWord) {
+	@Override
+	public void initQuery(List<String> statement, String firstWord) {
 		this.statementList = statement;
-		stringBuilder = new StringBuilder(startingWord);
+		stringBuilder = new StringBuilder(firstWord);
 		try {
 			statementList.remove(0);
 		}catch(NullPointerException e){
 			System.err.println("[ERROR] NullPointerException in AbstractQuery contructor");
 		}
-	}
-
-	@Autowired
-	void setDictionaryService(DictionaryService dictionaryService){
-		this.dictionaryService = dictionaryService;
 	}
 
 	@Override

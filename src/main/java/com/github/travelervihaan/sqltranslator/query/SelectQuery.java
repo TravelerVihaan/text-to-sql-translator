@@ -1,14 +1,20 @@
 package com.github.travelervihaan.sqltranslator.query;
 
+import com.github.travelervihaan.sqltranslator.service.DictionaryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
+@Component(value="selectQuery")
 public class SelectQuery extends AbstractQuery {
-	
-	SelectQuery(List<String> statement) {
-		super(statement, "SELECT ");
+
+	@Autowired
+	SelectQuery(DictionaryService dictionaryService){
+		super(dictionaryService);
 	}
-	
-	@Override
+
+				@Override
 	public void prepareQuery() {
 		if(checkAllDictionary()) {
 			prepareConditionForQuery();

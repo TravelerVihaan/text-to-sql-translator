@@ -6,15 +6,12 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component(value="deleteQuery")
 public class DeleteQuery extends AbstractQuery{
 
-	DeleteQuery(List<String> statement) {
-		super(statement, "DELETE ");
-	}
-
 	@Autowired
-	public void setDictionaryService(DictionaryService dictionaryService){
-		super.setDictionaryService(dictionaryService);
+	DeleteQuery(DictionaryService dictionaryService) {
+		super(dictionaryService);
 	}
 
 	@Override
