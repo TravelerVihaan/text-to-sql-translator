@@ -5,24 +5,32 @@ import com.github.travelervihaan.sqltranslator.query.QueryFactory;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Service
 public class TranslatorService {
 	
 	private String naturalLanguageStatement;
-	private String[] splittedStatement;
+	private List<String> splittedStatement;
 	private QueryFactory queryFactory;
 	private Query query;
 	
 	public void setNaturalLanguageStatement(String statement) {
 		this.naturalLanguageStatement = statement;
 		splitStatement();
-		query = queryFactory.createSpecifiedQuery(this.getFirstWord(), this.getSplittedStatement());
+		queryFactory = new QueryFactory();
+		query = queryFactory.createSpecifiedQuery(getFirstWord(), getSplittedStatement());
+		if(query==null){
+			System.err.println("ERROR");
+		}
 		query.prepareQuery();
 		this.naturalLanguageStatement = query.getPreparedQuery();
 	}
 
 	private void splitStatement(){
-		this.splittedStatement = naturalLanguageStatement.split(" ");
+		this.splittedStatement = new ArrayList<>(Arrays.asList(naturalLanguageStatement.split(" ")));
 	}
 
 	public String getNaturalLanguageStatement(){return naturalLanguageStatement;}
@@ -32,10 +40,10 @@ public class TranslatorService {
 	//}
 	
 	public String getFirstWord(){
-		return splittedStatement[0];
+		return splittedStatement.get(0);
 	}
 
-	private String[] getSplittedStatement(){
+	private List<String> getSplittedStatement(){
 		return splittedStatement;
 	}
 	

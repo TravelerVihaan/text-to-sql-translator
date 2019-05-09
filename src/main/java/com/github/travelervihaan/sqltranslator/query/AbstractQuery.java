@@ -15,10 +15,14 @@ public abstract class AbstractQuery implements Query {
 	private StringBuilder stringBuilder;
 	private DictionaryService dictionaryService;
 	
-	AbstractQuery(String[] statement, String startingWord) {
-		this.statementList = new ArrayList<>(Arrays.asList(statement));
+	AbstractQuery(List<String> statement, String startingWord) {
+		this.statementList = statement;
 		stringBuilder = new StringBuilder(startingWord);
-		statementList.remove(0);
+		try {
+			statementList.remove(0);
+		}catch(NullPointerException e){
+			System.err.println("[ERROR] NullPointerException in AbstractQuery contructor");
+		}
 	}
 
 	@Override

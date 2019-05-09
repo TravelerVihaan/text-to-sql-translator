@@ -5,24 +5,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.github.travelervihaan.sqltranslator.service.DictionaryService;
 import com.mongodb.MongoSocketException;
 
+import java.util.List;
+
 public class QueryFactory {
 
 	private final String SELECT = "select";
 	private final String DELETE = "delete";
 	private final String UPDATE = "update";
 	private final String CREATE = "create";
-	private DictionaryService dictionaryService;
 
 	@Autowired
-	public QueryFactory(DictionaryService dictionaryService) {
-		setDictionaryService(dictionaryService);
-	}
+	private DictionaryService dictionaryService;
+
+
+	public QueryFactory(){ }
 
 	private void setDictionaryService(DictionaryService dictionaryService) {
 		this.dictionaryService = dictionaryService;
 	}
 	
-	public Query createSpecifiedQuery(String firstWord, String[] splittedStatement) {
+	public Query createSpecifiedQuery(String firstWord, List<String> splittedStatement) {
 		if(compareFirstWord(SELECT, firstWord))
 			return new SelectQuery(splittedStatement);
 		
@@ -34,7 +36,8 @@ public class QueryFactory {
 
 		if(compareFirstWord(CREATE, firstWord))
 			return new CreateQuery(splittedStatement);
-		return null;
+
+		return new CreateQuery(splittedStatement);
 	}
 	
 	private boolean compareFirstWord(String queryType, String firstWord) {

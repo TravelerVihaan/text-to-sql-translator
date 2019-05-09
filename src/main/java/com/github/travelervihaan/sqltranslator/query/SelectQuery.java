@@ -1,8 +1,10 @@
 package com.github.travelervihaan.sqltranslator.query;
 
+import java.util.List;
+
 public class SelectQuery extends AbstractQuery {
 	
-	SelectQuery(String[] statement) {
+	SelectQuery(List<String> statement) {
 		super(statement, "SELECT ");
 	}
 	

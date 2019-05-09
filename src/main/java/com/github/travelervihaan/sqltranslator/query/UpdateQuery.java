@@ -1,8 +1,10 @@
 package com.github.travelervihaan.sqltranslator.query;
 
+import java.util.List;
+
 public class UpdateQuery extends AbstractQuery {
 	
-	UpdateQuery(String[] statement) {
+	UpdateQuery(List<String> statement) {
 		super(statement, "UPDATE ");
 	}
 	

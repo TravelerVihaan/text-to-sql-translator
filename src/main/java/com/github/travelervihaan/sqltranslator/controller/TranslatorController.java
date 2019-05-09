@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.travelervihaan.sqltranslator.service.TranslatorService;
 
+import javax.validation.constraints.Null;
+
 @Controller
 public class TranslatorController {
 	
@@ -26,8 +28,10 @@ public class TranslatorController {
     }
 
     @PostMapping("/translate")
-    public String translate(@RequestParam String statement, Model model){
-    	translatorService.setNaturalLanguageStatement(statement);
+    public String translate(@RequestParam String query, Model model){
+
+
+	    translatorService.setNaturalLanguageStatement(query);
     	model.addAttribute("statement",translatorService.getNaturalLanguageStatement());
         return "redirect:/index";
     }

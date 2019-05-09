@@ -1,8 +1,10 @@
 package com.github.travelervihaan.sqltranslator.query;
 
+import java.util.List;
+
 public class DeleteQuery extends AbstractQuery{
 	
-	DeleteQuery(String[] statement) {
+	DeleteQuery(List<String> statement) {
 		super(statement, "DELETE ");
 	}
 
