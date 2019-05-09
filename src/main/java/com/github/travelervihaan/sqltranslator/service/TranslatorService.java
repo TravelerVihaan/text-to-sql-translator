@@ -3,6 +3,7 @@ package com.github.travelervihaan.sqltranslator.service;
 import com.github.travelervihaan.sqltranslator.query.Query;
 import com.github.travelervihaan.sqltranslator.query.QueryFactory;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,11 +17,15 @@ public class TranslatorService {
 	private List<String> splittedStatement;
 	private QueryFactory queryFactory;
 	private Query query;
+
+	@Autowired
+	TranslatorService(QueryFactory queryFactory){
+		this.queryFactory = queryFactory;
+	}
 	
 	public void setNaturalLanguageStatement(String statement) {
 		this.naturalLanguageStatement = statement;
 		splitStatement();
-		queryFactory = new QueryFactory();
 		query = queryFactory.createSpecifiedQuery(getFirstWord(), getSplittedStatement());
 		if(query==null){
 			System.err.println("ERROR");
@@ -39,7 +44,7 @@ public class TranslatorService {
 	//	return query.getPreparedQuery();
 	//}
 	
-	public String getFirstWord(){
+	private String getFirstWord(){
 		return splittedStatement.get(0);
 	}
 

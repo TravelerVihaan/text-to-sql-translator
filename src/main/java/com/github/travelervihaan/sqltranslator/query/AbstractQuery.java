@@ -4,8 +4,6 @@ import com.github.travelervihaan.sqltranslator.service.DictionaryService;
 import com.mongodb.MongoSocketException;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public abstract class AbstractQuery implements Query {
@@ -13,8 +11,10 @@ public abstract class AbstractQuery implements Query {
 	private List<String> statementList;
 	private String preparedQuery;
 	private StringBuilder stringBuilder;
+	@Autowired
 	private DictionaryService dictionaryService;
-	
+
+
 	AbstractQuery(List<String> statement, String startingWord) {
 		this.statementList = statement;
 		stringBuilder = new StringBuilder(startingWord);
@@ -45,11 +45,6 @@ public abstract class AbstractQuery implements Query {
 
 	void setStringBuilder(StringBuilder stringBuilder){
 		this.stringBuilder = stringBuilder;
-	}
-
-	@Autowired
-	protected void setDictionaryService(DictionaryService dictService){
-		this.dictionaryService = dictService;
 	}
 
 	private DictionaryService getDictionaryService(){ return dictionaryService; }

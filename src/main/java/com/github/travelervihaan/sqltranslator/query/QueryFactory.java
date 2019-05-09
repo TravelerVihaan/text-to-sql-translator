@@ -4,27 +4,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.travelervihaan.sqltranslator.service.DictionaryService;
 import com.mongodb.MongoSocketException;
+import org.springframework.stereotype.Component;
 
+import java.util.Dictionary;
 import java.util.List;
 
+@Component
 public class QueryFactory {
 
 	private final String SELECT = "select";
 	private final String DELETE = "delete";
 	private final String UPDATE = "update";
 	private final String CREATE = "create";
-
-	@Autowired
 	private DictionaryService dictionaryService;
 
-
-	public QueryFactory(){ }
-
-	private void setDictionaryService(DictionaryService dictionaryService) {
+	@Autowired
+	public QueryFactory(DictionaryService dictionaryService){
 		this.dictionaryService = dictionaryService;
 	}
 	
 	public Query createSpecifiedQuery(String firstWord, List<String> splittedStatement) {
+		if(dictionaryService==null){
+			System.err.println("Dupa!\n");
+		}
+
 		if(compareFirstWord(SELECT, firstWord))
 			return new SelectQuery(splittedStatement);
 		

@@ -3,7 +3,7 @@ package com.github.travelervihaan.sqltranslator.query;
 import java.util.List;
 
 public class DeleteQuery extends AbstractQuery{
-	
+
 	DeleteQuery(List<String> statement) {
 		super(statement, "DELETE ");
 	}
