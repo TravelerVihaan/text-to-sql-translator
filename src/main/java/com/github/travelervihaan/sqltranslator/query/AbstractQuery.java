@@ -11,7 +11,6 @@ public abstract class AbstractQuery implements Query {
 	private List<String> statementList;
 	private String preparedQuery;
 	private StringBuilder stringBuilder;
-	@Autowired
 	private DictionaryService dictionaryService;
 
 
@@ -23,6 +22,11 @@ public abstract class AbstractQuery implements Query {
 		}catch(NullPointerException e){
 			System.err.println("[ERROR] NullPointerException in AbstractQuery contructor");
 		}
+	}
+
+	@Autowired
+	void setDictionaryService(DictionaryService dictionaryService){
+		this.dictionaryService = dictionaryService;
 	}
 
 	@Override
@@ -49,7 +53,7 @@ public abstract class AbstractQuery implements Query {
 
 	private DictionaryService getDictionaryService(){ return dictionaryService; }
 	
-	protected void setStatement(List<String> statementList) {
+	public void setStatement(List<String> statementList) {
 		this.statementList = statementList;
 	}
 	
@@ -126,6 +130,8 @@ public abstract class AbstractQuery implements Query {
 	}
 
 	boolean isWordInDictionary(String dictionaryName){
+		if(dictionaryService==null)
+			System.err.println("DUPA\n");
 		try {
 			return getDictionaryService().compareWord(getDictionaryService().getByName(dictionaryName), getStatement().get(0));
 		}catch(MongoSocketException e){

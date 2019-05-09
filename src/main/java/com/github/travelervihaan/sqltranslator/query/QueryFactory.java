@@ -20,13 +20,11 @@ public class QueryFactory {
 
 	@Autowired
 	public QueryFactory(DictionaryService dictionaryService){
+
 		this.dictionaryService = dictionaryService;
 	}
 	
 	public Query createSpecifiedQuery(String firstWord, List<String> splittedStatement) {
-		if(dictionaryService==null){
-			System.err.println("Dupa!\n");
-		}
 
 		if(compareFirstWord(SELECT, firstWord))
 			return new SelectQuery(splittedStatement);
