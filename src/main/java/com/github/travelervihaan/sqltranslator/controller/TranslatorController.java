@@ -19,8 +19,9 @@ public class TranslatorController {
 	}
 
     @RequestMapping("/")
-    public String home(){
-        return "index";
+    public String home(@RequestParam(required = false) String statement, Model model){
+        model.addAttribute("statement", statement);
+	    return "index";
     }
 
     @RequestMapping("/translate")

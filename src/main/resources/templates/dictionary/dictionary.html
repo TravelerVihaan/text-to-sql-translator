@@ -11,6 +11,7 @@
 
 <body>
 	<div class="container">
+		<br>
 		<div class="row">
 			<div class="col-sm-10">
 				<a th:href="@{/}"><button class="btn btn-dark btn-sm" type="submit"><------ Back</button></a>
@@ -21,21 +22,45 @@
 		
 		<div class="row">
 			<div class="col-sm-10">
+				<p class="h2"> Please, choose dictionary to edit it:</p>
 				<div th:if="not ${dictionaries.isEmpty()}">
-					<form action="@{/dictionary/${name}}" method="POST">
-						<select class="form-control" th:field="*{name}">
-  							<option th:each="dict: ${dictionaries}" th:value="${dict.name}" th:utext="${dict.name}" />
-						</select>
+					<form th:action="@{/dictionarypanel}" method="GET">
+						<div class="input-group">
+							<select class="form-control" id="dictionaryName" name="dictionaryName">
+  								<option th:each="dict: ${dictionaries}" th:value="${dict}" th:utext="${dict}" />
+							</select>
+							<div class="input-group-append">
+								<button class="btn btn-primary" type="submit">Select dictionary</button>
+							</div>
+						</div>
 					</form>
 				</div>
 				<div th:if="${dictionaries.isEmpty()}">
-					Please, first choose dictionary
+					There is not any dictionary!
 				</div>
 			</div>
 		</div>
+		<br>
 		<div class="row">
 			<div class="col-sm-10">
-				<!-- to do wyswietlanie -->
+				<p class="h2"> Fill the form to add new dictionary to database:</p>
+					<form th:action="@{/addnewdictionary}" method="POST">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1">Dictionary name:</span>
+							</div>
+							<input type="text" class="form-control" name="dictionaryName" placeholder="Type here dictionary name" aria-label="Login" aria-describedby="basic-addon1">
+						</div>
+						<div class="input-group">
+							<br>
+							<div class="input-group-prepend">
+								<span class="input-group-text">Type dictionary words splitting them by single spaces</span>
+							</div>
+							<textarea class="form-control" aria-label="Dictionary words" name="words"></textarea>
+						</div>
+						<br>
+						<button class="btn btn-primary btn-block" type="submit">Create new dictionary</button>
+					</form>
 			</div>
 		</div>
 	</div>
