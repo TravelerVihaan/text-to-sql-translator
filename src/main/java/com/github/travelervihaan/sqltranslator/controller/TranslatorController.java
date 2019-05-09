@@ -3,6 +3,7 @@ package com.github.travelervihaan.sqltranslator.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -19,12 +20,12 @@ public class TranslatorController {
 	}
 
     @RequestMapping("/")
-    public String home(@RequestParam(required = false) String statement, Model model){
+    public String home(@RequestParam(required = false, defaultValue = "") String statement, Model model){
         model.addAttribute("statement", statement);
 	    return "index";
     }
 
-    @RequestMapping("/translate")
+    @PostMapping("/translate")
     public String translate(@RequestParam String statement, Model model){
     	translatorService.setNaturalLanguageStatement(statement);
     	model.addAttribute("statement",translatorService.getNaturalLanguageStatement());
