@@ -109,9 +109,6 @@ public abstract class AbstractQuery implements Query {
 			//usuwanie "nie wynosi"
 			popFirstElementFromList();
 			popFirstElementFromList();
-			//
-			convertToPreparedQuery();
-			System.err.println(preparedQuery);
 		}else{
 			//nazwa pola
 			appendToStringBuilder(getStatement().get(0));
@@ -119,9 +116,6 @@ public abstract class AbstractQuery implements Query {
 			appendToStringBuilder(" = ");
 			//usuwanie "wynosi"
 			popFirstElementFromList();
-			//
-			convertToPreparedQuery();
-			System.err.println(preparedQuery);
 		}
 	}
 

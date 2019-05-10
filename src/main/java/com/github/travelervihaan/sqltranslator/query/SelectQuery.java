@@ -62,7 +62,7 @@ public class SelectQuery extends AbstractQuery {
 
 	private void prepareElementsToSelect(){
 		while(getStatement().get(0).substring(getStatement().get(0).length()-1).equals(",")){
-			appendToStringBuilder(getStatement().get(0).substring(0,getStatement().get(0).length()-2));
+			appendToStringBuilder(getStatement().get(0).substring(0,getStatement().get(0).length()-1));
 			popFirstElementFromList();
 			if(getStatement().get(0).substring(getStatement().get(0).length()-1).equals(","))
 				appendToStringBuilder(", ");
