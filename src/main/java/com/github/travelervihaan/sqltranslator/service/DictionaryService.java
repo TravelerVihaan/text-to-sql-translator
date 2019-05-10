@@ -60,7 +60,7 @@ public class DictionaryService {
 	public void addWordToDictionary(String dictionaryName, String word){
 		try {
 			if (!word.equals("") && word.length() > 0) {
-				if(isWordAlreadyExist(dictionaryName, word)){
+				if(!isWordAlreadyExist(dictionaryName, word)){
 					Dictionary dictionary = dictionaryRepository.findByName(dictionaryName);
 					dictionary.getDictionaryWords().add(word);
 					dictionaryRepository.save(dictionary);
@@ -78,6 +78,8 @@ public class DictionaryService {
 			if(isWordAlreadyExist(dictionaryName,word)){
 				Dictionary dictionary = dictionaryRepository.findByName(dictionaryName);
 				dictionary.getDictionaryWords().remove(word);
+				///
+				System.out.println(dictionary.getDictionaryWords());
 				dictionaryRepository.save(dictionary);
 			}
 		}catch(MongoSocketException e) {
@@ -86,15 +88,12 @@ public class DictionaryService {
 	}
 
 	private boolean isWordAlreadyExist(String dictionaryName, String word){
-		if(dictionaryRepository==null)
-			System.err.println("Error repository");
-		System.out.println(dictionaryName);
 		List<String> wordsList = dictionaryRepository.findByName(dictionaryName).getDictionaryWords();
 		for(String wordToCheck : wordsList) {
 			if(wordToCheck.equalsIgnoreCase(word))
-				return false;
+				return true;
 		}
-		return true;
+		return false;
 	}
 	
 	public boolean compareWord(Dictionary dictionary, String word) {
