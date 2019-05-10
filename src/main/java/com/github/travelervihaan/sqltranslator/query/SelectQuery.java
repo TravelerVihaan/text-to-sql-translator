@@ -42,14 +42,15 @@ public class SelectQuery extends AbstractQuery {
 		//if(getStatement.get(0).equalsIgnoreCase("posortowane")
 		if(isWordInDictionary("sort")){
 			appendToStringBuilder("ORDER BY ");
-			//
-			System.err.println(getPreparedQuery());
+			//usuwanie sort
 			popFirstElementFromList();
 			if(isAscendingOrDescending(getStatement().get(0))) {
-				appendToStringBuilder(getStatement().get(1));
+				//popFirstElementFromList();
+				appendToStringBuilder(getStatement().get(2));
 				appendToStringBuilder(checkAscendingOrDescending(getStatement().get(0)));
 				return;
 			}
+			//nazwa kolumny pomijajac 'wedlug'
 			appendToStringBuilder(getStatement().get(1));
 		}
 	}
