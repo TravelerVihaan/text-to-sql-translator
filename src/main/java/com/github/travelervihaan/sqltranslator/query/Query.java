@@ -1,9 +1,13 @@
 package com.github.travelervihaan.sqltranslator.query;
 
+import java.util.List;
+
 public interface Query {
 	
-	public void prepareQuery();
+	void prepareQuery();
 	
-	public String getPreparedQuery();
+	String getPreparedQuery();
+
+	void initQuery(List<String> statement, String firstWord);
 	
 }

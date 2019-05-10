@@ -1,9 +1,17 @@
 package com.github.travelervihaan.sqltranslator.query;
 
+import com.github.travelervihaan.sqltranslator.service.DictionaryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+@Component(value="deleteQuery")
 public class DeleteQuery extends AbstractQuery{
-	
-	DeleteQuery(String[] statement) {
-		super(statement, "DELETE ");
+
+	@Autowired
+	DeleteQuery(DictionaryService dictionaryService) {
+		super(dictionaryService);
 	}
 
 	@Override
@@ -13,7 +21,8 @@ public class DeleteQuery extends AbstractQuery{
 			return;
 		}
 		if(checkAllDictionary()) {
-			prepareConditionForQuery();
+			if(!getStatement().isEmpty())
+				prepareConditionForQuery();
 		}
 	}
 

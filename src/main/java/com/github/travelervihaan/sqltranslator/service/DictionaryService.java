@@ -95,6 +95,8 @@ public class DictionaryService {
 	}
 	
 	public boolean compareWord(Dictionary dictionary, String word) {
+		if(dictionary==null)
+			System.err.println("DUPA!\n");
 		try {
 			for (String dictionaryWord : dictionary.getDictionaryWords()) {
 				if (dictionaryWord.equalsIgnoreCase(word))

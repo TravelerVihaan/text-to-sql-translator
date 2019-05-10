@@ -4,8 +4,6 @@ import com.github.travelervihaan.sqltranslator.service.DictionaryService;
 import com.mongodb.MongoSocketException;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public abstract class AbstractQuery implements Query {
@@ -14,14 +12,24 @@ public abstract class AbstractQuery implements Query {
 	private String preparedQuery;
 	private StringBuilder stringBuilder;
 	private DictionaryService dictionaryService;
-	
-	AbstractQuery(String[] statement, String startingWord) {
-		this.statementList = new ArrayList<>(Arrays.asList(statement));
-		stringBuilder = new StringBuilder(startingWord);
-		statementList.remove(0);
+
+	@Autowired
+	AbstractQuery(DictionaryService dictionaryService){
+		this.dictionaryService = dictionaryService;
 	}
 
 	@Override
+	public void initQuery(List<String> statement, String firstWord) {
+		this.statementList = statement;
+		stringBuilder = new StringBuilder(firstWord);
+		try {
+			statementList.remove(0);
+}catch(NullPointerException e){
+		System.err.println("[ERROR] NullPointerException in AbstractQuery contructor");
+		}
+		}
+
+@Override
 	public abstract void prepareQuery();
 
 	@Override
@@ -43,14 +51,9 @@ public abstract class AbstractQuery implements Query {
 		this.stringBuilder = stringBuilder;
 	}
 
-	@Autowired
-	protected void setDictionaryService(DictionaryService dictService){
-		this.dictionaryService = dictService;
-	}
-
 	private DictionaryService getDictionaryService(){ return dictionaryService; }
 	
-	protected void setStatement(List<String> statementList) {
+	public void setStatement(List<String> statementList) {
 		this.statementList = statementList;
 	}
 	
@@ -61,11 +64,14 @@ public abstract class AbstractQuery implements Query {
 	boolean checkAllDictionary(){
 		if(isWordInDictionary("all")) {
 			appendToStringBuilder("FROM ");
+			popFirstElementFromList();
 			//z
 			popFirstElementFromList();
 			//tabeli
 			popFirstElementFromList();
 			appendToStringBuilder(getStatement().get(0));
+			//usuwanie nazwy tabeli
+			popFirstElementFromList();
 			return true;
 		}else
 			return false;
@@ -75,16 +81,21 @@ public abstract class AbstractQuery implements Query {
 		if(isWordInDictionary("where")){
 			//usuwanie "gdzie"
 			popFirstElementFromList();
-			appendToStringBuilder("WHERE ");
+			appendToStringBuilder(" WHERE ");
 			do {
 				checkIfStatementIsNegation();
 				appendNumericOrStringToStatement();
-				if(getStatement().get(0).equalsIgnoreCase("i"))
-					appendToStringBuilder("AND ");
-				else if(getStatement().get(0).equalsIgnoreCase("lub"))
-					appendToStringBuilder("OR ");
-				else
-					break;
+				if(!getStatement().isEmpty()) {
+					if (getStatement().get(0).equalsIgnoreCase("i")) {
+						appendToStringBuilder("AND ");
+						popFirstElementFromList();
+					}else if (getStatement().get(0).equalsIgnoreCase("lub")) {
+						appendToStringBuilder("OR ");
+						popFirstElementFromList();
+					}else{
+						break;
+					}
+				}
 			}while(getStatement().size()>0);
 		}
 		appendToStringBuilder(" ");
@@ -120,17 +131,20 @@ public abstract class AbstractQuery implements Query {
 
 	void appendNumericOrStringToStatement(){
 		if (isNumeric(getStatement().get(0)))
-			appendToStringBuilder("'" + getStatement().get(0) + "' ");
-		else
 			appendToStringBuilder(getStatement().get(0)+" ");
+		else
+			appendToStringBuilder("'" + getStatement().get(0) + "' ");
 		popFirstElementFromList();
 	}
 
 	boolean isWordInDictionary(String dictionaryName){
 		try {
-			return getDictionaryService().compareWord(getDictionaryService().getByName(dictionaryName), getStatement().get(0));
+			return dictionaryService.compareWord(dictionaryService.getByName(dictionaryName), getStatement().get(0));
 		}catch(MongoSocketException e){
 			System.err.println("[ERROR] Problem with database connection!\n");
+			return false;
+		}catch(IndexOutOfBoundsException e){
+			System.err.println("[ERROR] Niepoprawna forma wyrazenia!\n");
 			return false;
 		}
 	}
