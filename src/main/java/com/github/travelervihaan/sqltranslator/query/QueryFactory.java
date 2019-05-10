@@ -40,19 +40,19 @@ public class QueryFactory {
 	public Query createSpecifiedQuery(String firstWord, List<String> splittedStatement) {
 
 		if(compareFirstWord(SELECT, firstWord)) {
-			selectQuery.initQuery(splittedStatement, firstWord);
+			selectQuery.initQuery(splittedStatement, "SELECT ");
 			return selectQuery;
 		}
 		if(compareFirstWord(DELETE, firstWord)) {
-			deleteQuery.initQuery(splittedStatement, firstWord);
+			deleteQuery.initQuery(splittedStatement, "DELETE ");
 			return deleteQuery;
 		}
 		if(compareFirstWord(UPDATE, firstWord)) {
-			updateQuery.initQuery(splittedStatement, firstWord);
+			updateQuery.initQuery(splittedStatement, "UPDATE ");
 			return updateQuery;
 		}
 		if(compareFirstWord(CREATE, firstWord)) {
-			createQuery.initQuery(splittedStatement, firstWord);
+			createQuery.initQuery(splittedStatement, "CREATE ");
 			return createQuery;
 		}
 

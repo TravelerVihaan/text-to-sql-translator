@@ -24,12 +24,12 @@ public abstract class AbstractQuery implements Query {
 		stringBuilder = new StringBuilder(firstWord);
 		try {
 			statementList.remove(0);
-		}catch(NullPointerException e){
-			System.err.println("[ERROR] NullPointerException in AbstractQuery contructor");
+}catch(NullPointerException e){
+		System.err.println("[ERROR] NullPointerException in AbstractQuery contructor");
 		}
-	}
+		}
 
-	@Override
+@Override
 	public abstract void prepareQuery();
 
 	@Override
@@ -64,11 +64,14 @@ public abstract class AbstractQuery implements Query {
 	boolean checkAllDictionary(){
 		if(isWordInDictionary("all")) {
 			appendToStringBuilder("FROM ");
+			popFirstElementFromList();
 			//z
 			popFirstElementFromList();
 			//tabeli
 			popFirstElementFromList();
 			appendToStringBuilder(getStatement().get(0));
+			//usuwanie nazwy tabeli
+			popFirstElementFromList();
 			return true;
 		}else
 			return false;
@@ -130,12 +133,13 @@ public abstract class AbstractQuery implements Query {
 	}
 
 	boolean isWordInDictionary(String dictionaryName){
-		if(dictionaryService==null)
-			System.err.println("DUPA\n");
 		try {
-			return getDictionaryService().compareWord(getDictionaryService().getByName(dictionaryName), getStatement().get(0));
+			return dictionaryService.compareWord(dictionaryService.getByName(dictionaryName), getStatement().get(0));
 		}catch(MongoSocketException e){
 			System.err.println("[ERROR] Problem with database connection!\n");
+			return false;
+		}catch(IndexOutOfBoundsException e){
+			System.err.println("[ERROR] Niepoprawna forma wyrazenia!\n");
 			return false;
 		}
 	}

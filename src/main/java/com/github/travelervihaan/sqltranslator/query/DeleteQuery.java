@@ -21,7 +21,8 @@ public class DeleteQuery extends AbstractQuery{
 			return;
 		}
 		if(checkAllDictionary()) {
-			prepareConditionForQuery();
+			if(!getStatement().isEmpty())
+				prepareConditionForQuery();
 		}
 	}
 

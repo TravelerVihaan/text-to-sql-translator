@@ -14,7 +14,7 @@ public class SelectQuery extends AbstractQuery {
 		super(dictionaryService);
 	}
 
-				@Override
+	@Override
 	public void prepareQuery() {
 		if(checkAllDictionary()) {
 			prepareConditionForQuery();
