@@ -86,6 +86,9 @@ public class DictionaryService {
 	}
 
 	private boolean isWordAlreadyExist(String dictionaryName, String word){
+		if(dictionaryRepository==null)
+			System.err.println("Error repository");
+		System.out.println(dictionaryName);
 		List<String> wordsList = dictionaryRepository.findByName(dictionaryName).getDictionaryWords();
 		for(String wordToCheck : wordsList) {
 			if(wordToCheck.equalsIgnoreCase(word))

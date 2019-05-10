@@ -24,7 +24,7 @@
 				<form th:action="@{/addword}" method="post">
 					<div class="form-group">
 						<label for="AddWord">Add word to dictionary:</label>
-						<input type="hidden" name="dictionaryName" value="${dictionary.getName()}"/>
+						<input type="hidden" name="dictionaryName" th:value="${dictionary.getName()}"/>
 						<input type="text" class="form-control" name="word" placeholder="Word"/>
 						<button class="btn btn-primary btn-block" type="submit">Add</button>
 					</div>
@@ -34,7 +34,7 @@
 				<form th:action="@{/deleteword}" method="post">
 					<div class="form-group">
 						<label for="DeleteWord">Delete word from dictionary:</label>
-						 <input type="hidden" name="dictionaryName" value="${dictionary.getName()}"/>
+						 <input type="hidden" name="dictionaryName" th:value="${dictionary.getName()}"/>
 						<input type="text" class="form-control" name="word" placeholder="Word"/>
 						<button class="btn btn-primary btn-block" type="submit">Delete</button>
 					</div>
