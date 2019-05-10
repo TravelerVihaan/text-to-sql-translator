@@ -29,7 +29,10 @@ public class SelectQuery extends AbstractQuery {
 		appendToStringBuilder("FROM ");
 		popFirstElementFromList();
 		popFirstElementFromList();
-		appendToStringBuilder(getStatement().get(0)+" ");
+		System.out.println(getStatement());
+		appendToStringBuilder(getStatement().get(0));
+		//usun nazwa tabeli
+		popFirstElementFromList();
 		prepareConditionForQuery();
 		try{
 			prepareSortingForQuery();
@@ -45,7 +48,6 @@ public class SelectQuery extends AbstractQuery {
 			//usuwanie sort
 			popFirstElementFromList();
 			if(isAscendingOrDescending(getStatement().get(0))) {
-				//popFirstElementFromList();
 				appendToStringBuilder(getStatement().get(2));
 				appendToStringBuilder(checkAscendingOrDescending(getStatement().get(0)));
 				return;
@@ -69,14 +71,17 @@ public class SelectQuery extends AbstractQuery {
 	}
 
 	private void prepareElementsToSelect(){
-		while(getStatement().get(0).substring(getStatement().get(0).length()-1).equals(",")){
+		do{
 			appendToStringBuilder(getStatement().get(0).substring(0,getStatement().get(0).length()-1));
-			popFirstElementFromList();
 			if(getStatement().get(0).substring(getStatement().get(0).length()-1).equals(","))
 				appendToStringBuilder(", ");
 			else
 				appendToStringBuilder(" ");
-		}
+			popFirstElementFromList();
+		}while(getStatement().get(0).substring(getStatement().get(0).length()-1).equals(","));
+		appendToStringBuilder(getStatement().get(0));
+		appendToStringBuilder(" ");
+		popFirstElementFromList();
 	}
 
 
