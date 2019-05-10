@@ -32,6 +32,6 @@ public class TranslatorController {
 	    translatorService.setNaturalLanguageStatement(query);
     	model.addAttribute("statement",translatorService.getNaturalLanguageStatement());
     	System.out.println(translatorService.getNaturalLanguageStatement());
-        return "result";
+        return "index";
     }
 }
