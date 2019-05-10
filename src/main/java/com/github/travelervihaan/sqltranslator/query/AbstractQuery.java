@@ -81,16 +81,20 @@ public abstract class AbstractQuery implements Query {
 		if(isWordInDictionary("where")){
 			//usuwanie "gdzie"
 			popFirstElementFromList();
-			appendToStringBuilder("WHERE ");
+			appendToStringBuilder(" WHERE ");
 			do {
 				checkIfStatementIsNegation();
 				appendNumericOrStringToStatement();
-				if(getStatement().get(0).equalsIgnoreCase("i"))
-					appendToStringBuilder("AND ");
-				else if(getStatement().get(0).equalsIgnoreCase("lub"))
-					appendToStringBuilder("OR ");
-				else
-					break;
+				if(!getStatement().isEmpty()) {
+					if (getStatement().get(0).equalsIgnoreCase("i")) {
+						appendToStringBuilder("AND ");
+						popFirstElementFromList();
+					}else if (getStatement().get(0).equalsIgnoreCase("lub")) {
+						appendToStringBuilder("OR ");
+						popFirstElementFromList();
+					}else
+						break;
+				}
 			}while(getStatement().size()>0);
 		}
 		appendToStringBuilder(" ");
@@ -105,6 +109,9 @@ public abstract class AbstractQuery implements Query {
 			//usuwanie "nie wynosi"
 			popFirstElementFromList();
 			popFirstElementFromList();
+			//
+			convertToPreparedQuery();
+			System.err.println(preparedQuery);
 		}else{
 			//nazwa pola
 			appendToStringBuilder(getStatement().get(0));
@@ -112,6 +119,9 @@ public abstract class AbstractQuery implements Query {
 			appendToStringBuilder(" = ");
 			//usuwanie "wynosi"
 			popFirstElementFromList();
+			//
+			convertToPreparedQuery();
+			System.err.println(preparedQuery);
 		}
 	}
 
