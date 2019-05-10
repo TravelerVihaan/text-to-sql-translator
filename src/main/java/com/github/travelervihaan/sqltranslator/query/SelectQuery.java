@@ -29,7 +29,6 @@ public class SelectQuery extends AbstractQuery {
 		appendToStringBuilder("FROM ");
 		popFirstElementFromList();
 		popFirstElementFromList();
-		System.out.println(getStatement());
 		appendToStringBuilder(getStatement().get(0));
 		//usun nazwa tabeli
 		popFirstElementFromList();
