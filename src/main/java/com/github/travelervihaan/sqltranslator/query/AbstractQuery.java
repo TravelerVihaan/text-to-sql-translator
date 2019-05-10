@@ -92,8 +92,9 @@ public abstract class AbstractQuery implements Query {
 					}else if (getStatement().get(0).equalsIgnoreCase("lub")) {
 						appendToStringBuilder("OR ");
 						popFirstElementFromList();
-					}else
+					}else{
 						break;
+					}
 				}
 			}while(getStatement().size()>0);
 		}

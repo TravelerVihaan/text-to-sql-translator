@@ -40,10 +40,6 @@ public class TranslatorService {
 
 	public String getNaturalLanguageStatement(){return naturalLanguageStatement;}
 	
-	//public String getPreparedQuery() {
-	//	return query.getPreparedQuery();
-	//}
-	
 	private String getFirstWord(){
 		return splittedStatement.get(0);
 	}

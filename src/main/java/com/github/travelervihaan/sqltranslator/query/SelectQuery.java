@@ -18,6 +18,11 @@ public class SelectQuery extends AbstractQuery {
 	public void prepareQuery() {
 		if(checkAllDictionary()) {
 			prepareConditionForQuery();
+			try {
+				prepareSortingForQuery();
+			}catch(IndexOutOfBoundsException e){
+				System.err.println("[ERROR] Wykroczono poza liste!!");
+			}
 			return;
 		}
 		prepareElementsToSelect();
@@ -26,10 +31,10 @@ public class SelectQuery extends AbstractQuery {
 		popFirstElementFromList();
 		appendToStringBuilder(getStatement().get(0)+" ");
 		prepareConditionForQuery();
-		try {
+		try{
 			prepareSortingForQuery();
 		}catch(IndexOutOfBoundsException e){
-			System.err.println("Wykroczono poza listę!");
+			System.err.println("[ERROR] Wykroczono poza liste!!");
 		}
 	}
 
@@ -37,9 +42,11 @@ public class SelectQuery extends AbstractQuery {
 		//if(getStatement.get(0).equalsIgnoreCase("posortowane")
 		if(isWordInDictionary("sort")){
 			appendToStringBuilder("ORDER BY ");
+			//
+			System.err.println(getPreparedQuery());
 			popFirstElementFromList();
 			if(isAscendingOrDescending(getStatement().get(0))) {
-				appendToStringBuilder(getStatement().get(2));
+				appendToStringBuilder(getStatement().get(1));
 				appendToStringBuilder(checkAscendingOrDescending(getStatement().get(0)));
 				return;
 			}
