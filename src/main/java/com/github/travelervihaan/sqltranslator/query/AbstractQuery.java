@@ -130,9 +130,9 @@ public abstract class AbstractQuery implements Query {
 
 	void appendNumericOrStringToStatement(){
 		if (isNumeric(getStatement().get(0)))
-			appendToStringBuilder("'" + getStatement().get(0) + "' ");
-		else
 			appendToStringBuilder(getStatement().get(0)+" ");
+		else
+			appendToStringBuilder("'" + getStatement().get(0) + "' ");
 		popFirstElementFromList();
 	}
 
