@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.travelervihaan.sqltranslator.service.TranslatorService;
 
-import javax.validation.constraints.Null;
-
 @Controller
 public class TranslatorController {
 	

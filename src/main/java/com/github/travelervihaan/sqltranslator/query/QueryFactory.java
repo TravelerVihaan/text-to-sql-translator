@@ -7,7 +7,6 @@ import com.mongodb.MongoSocketException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import java.util.Dictionary;
 import java.util.List;
 
 @Component

@@ -24,10 +24,10 @@ public abstract class AbstractQuery implements Query {
 		stringBuilder = new StringBuilder(firstWord);
 		try {
 			statementList.remove(0);
-}catch(NullPointerException e){
-		System.err.println("[ERROR] NullPointerException in AbstractQuery constructor");
+		}catch(NullPointerException e){
+			System.err.println("[ERROR] NullPointerException in AbstractQuery constructor");
 		}
-		}
+	}
 
 @Override
 	public abstract void prepareQuery();

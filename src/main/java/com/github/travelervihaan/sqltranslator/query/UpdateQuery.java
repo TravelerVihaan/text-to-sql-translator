@@ -4,8 +4,6 @@ import com.github.travelervihaan.sqltranslator.service.DictionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component(value="updateQuery")
 public class UpdateQuery extends AbstractQuery {
 

@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DictionaryRepository extends MongoRepository<Dictionary, String> {
 
-    public Dictionary findByName(String dictionaryName);
+    Dictionary findByName(String dictionaryName);
 }
