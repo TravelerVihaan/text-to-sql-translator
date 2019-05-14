@@ -27,9 +27,6 @@ public class TranslatorService {
 		this.naturalLanguageStatement = statement;
 		splitStatement();
 		query = queryFactory.createSpecifiedQuery(getFirstWord(), getSplittedStatement());
-		if(query==null){
-			System.err.println("ERROR");
-		}
 		query.prepareQuery();
 		this.naturalLanguageStatement = query.getPreparedQuery();
 	}

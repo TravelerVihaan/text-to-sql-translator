@@ -25,7 +25,7 @@ public abstract class AbstractQuery implements Query {
 		try {
 			statementList.remove(0);
 }catch(NullPointerException e){
-		System.err.println("[ERROR] NullPointerException in AbstractQuery contructor");
+		System.err.println("[ERROR] NullPointerException in AbstractQuery constructor");
 		}
 		}
 
