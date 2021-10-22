@@ -38,7 +38,7 @@ public class SelectQuery extends AbstractQuery {
 		}
 	}
 
-	private void prepareSortingForQuery() throws IndexOutOfBoundsException{
+	private void prepareSortingForQuery() throws IndexOutOfBoundsException {
 		//if(getStatement.get(0).equalsIgnoreCase("posortowane")
 		if(isWordInDictionary("sort")){
 			appendToStringBuilder("ORDER BY ");

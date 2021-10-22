@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.travelervihaan.sqltranslator.service.TranslatorService;
 
+import java.util.Optional;
+
 @Controller
 public class TranslatorController {
 	
-	private TranslatorService translatorService;
+	private final TranslatorService translatorService;
 	
 	@Autowired
 	public TranslatorController(TranslatorService translatorService) {
@@ -27,7 +29,7 @@ public class TranslatorController {
 
     @PostMapping("/translate")
     public String translate(@RequestParam String query, Model model){
-	    translatorService.setNaturalLanguageStatement(query);
+	    translatorService.setNaturalLanguageStatement(Optional.ofNullable(query));
     	model.addAttribute("statement",translatorService.getNaturalLanguageStatement());
     	System.out.println(translatorService.getNaturalLanguageStatement());
         return "index";

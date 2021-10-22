@@ -16,7 +16,7 @@ import java.util.List;
 @Controller
 public class DictionaryController {
 	
-	private DictionaryService dictionaryService;
+	private final DictionaryService dictionaryService;
 	
 	@Autowired
 	public DictionaryController(DictionaryService dictionaryService) {

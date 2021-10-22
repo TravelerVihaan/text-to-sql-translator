@@ -1,16 +1,14 @@
 package com.github.travelervihaan.sqltranslator.service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.github.travelervihaan.sqltranslator.model.Dictionary;
 import com.github.travelervihaan.sqltranslator.repository.DictionaryRepository;
 import com.mongodb.MongoSocketException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class DictionaryService {
@@ -55,7 +53,7 @@ public class DictionaryService {
 
 	public void addWordToDictionary(String dictionaryName, String word){
 		try {
-			if (word.length() > 0) {
+			if (!word.isEmpty()) {
 				if(!isWordAlreadyExist(dictionaryName, word)){
 					Dictionary dictionary = dictionaryRepository.findByName(dictionaryName);
 					dictionary.getDictionaryWords().add(word);
@@ -83,25 +81,12 @@ public class DictionaryService {
 		}
 	}
 
-	private boolean isWordAlreadyExist(String dictionaryName, String word){
+	private boolean isWordAlreadyExist(String dictionaryName, String newWord){
 		List<String> wordsList = dictionaryRepository.findByName(dictionaryName).getDictionaryWords();
-		for(String wordToCheck : wordsList) {
-			if(wordToCheck.equalsIgnoreCase(word))
-				return true;
-		}
-		return false;
+		return wordsList.stream().anyMatch(word -> word.equalsIgnoreCase(newWord));
 	}
 	
 	public boolean compareWord(Dictionary dictionary, String word) {
-		try {
-			for (String dictionaryWord : dictionary.getDictionaryWords()) {
-				if (dictionaryWord.equalsIgnoreCase(word))
-					return true;
-			}
-			return false;
-		}catch(MongoSocketException e){
-			System.err.println("[ERROR] Problem with database connection!\n");
-			return false;
-		}
+		return dictionary.getDictionaryWords().stream().anyMatch(dictionaryWord -> dictionaryWord.equalsIgnoreCase(word));
 	}
 }

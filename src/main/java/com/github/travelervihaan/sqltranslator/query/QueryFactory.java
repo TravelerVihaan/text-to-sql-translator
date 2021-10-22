@@ -36,22 +36,22 @@ public class QueryFactory {
 		this.dictionaryService = dictionaryService;
 	}
 	
-	public Query createSpecifiedQuery(String firstWord, List<String> splittedStatement) {
+	public Query createSpecifiedQuery(String firstWord, List<String> splitStatementFragmets) {
 
 		if(compareFirstWord(SELECT, firstWord)) {
-			selectQuery.initQuery(splittedStatement, "SELECT ");
+			selectQuery.initQuery(splitStatementFragmets, "SELECT ");
 			return selectQuery;
 		}
 		if(compareFirstWord(DELETE, firstWord)) {
-			deleteQuery.initQuery(splittedStatement, "DELETE ");
+			deleteQuery.initQuery(splitStatementFragmets, "DELETE ");
 			return deleteQuery;
 		}
 		if(compareFirstWord(UPDATE, firstWord)) {
-			updateQuery.initQuery(splittedStatement, "UPDATE ");
+			updateQuery.initQuery(splitStatementFragmets, "UPDATE ");
 			return updateQuery;
 		}
 		if(compareFirstWord(CREATE, firstWord)) {
-			createQuery.initQuery(splittedStatement, "CREATE ");
+			createQuery.initQuery(splitStatementFragmets, "CREATE ");
 			return createQuery;
 		}
 

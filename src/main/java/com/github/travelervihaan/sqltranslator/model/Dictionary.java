@@ -9,13 +9,21 @@ import java.util.List;
 public class Dictionary {
 
     @Id
-    private String id;
+    private long id;
     private String name;
     private List<String> dictionaryWords;
 
     public Dictionary(String name, List<String> dictionaryWords){
         this.name = name;
         this.dictionaryWords = dictionaryWords;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -24,12 +24,13 @@ public class UpdateQuery extends AbstractQuery {
 
 	private void prepareElementsToSet(){
 		do{
-			appendToStringBuilder(getStatement().get(0) + " = ");
+			String statement = getStatement().get(0);
+			appendToStringBuilder(statement + " = ");
 			//usuniecie nazwy
 			popFirstElementFromList();
 			//usuniecie "wynosi"
 			popFirstElementFromList();
-			if(getStatement().get(0).substring(getStatement().get(0).length()-1).equals(","))
+			if(",".equals(statement.substring(statement.length()-1)))
 				appendNumericOrStringToStatement();
 			else{
 				appendNumericOrStringToStatement();

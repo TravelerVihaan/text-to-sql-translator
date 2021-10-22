@@ -11,7 +11,7 @@ public abstract class AbstractQuery implements Query {
 	private List<String> statementList;
 	private String preparedQuery;
 	private StringBuilder stringBuilder;
-	private DictionaryService dictionaryService;
+	private final DictionaryService dictionaryService;
 
 	@Autowired
 	AbstractQuery(DictionaryService dictionaryService){
@@ -29,7 +29,7 @@ public abstract class AbstractQuery implements Query {
 		}
 	}
 
-@Override
+	@Override
 	public abstract void prepareQuery();
 
 	@Override
@@ -51,8 +51,6 @@ public abstract class AbstractQuery implements Query {
 		this.stringBuilder = stringBuilder;
 	}
 
-	private DictionaryService getDictionaryService(){ return dictionaryService; }
-	
 	public void setStatement(List<String> statementList) {
 		this.statementList = statementList;
 	}
@@ -86,10 +84,10 @@ public abstract class AbstractQuery implements Query {
 				checkIfStatementIsNegation();
 				appendNumericOrStringToStatement();
 				if(!getStatement().isEmpty()) {
-					if (getStatement().get(0).equalsIgnoreCase("i")) {
+					if ("i".equalsIgnoreCase(getStatement().get(0))) {
 						appendToStringBuilder("AND ");
 						popFirstElementFromList();
-					}else if (getStatement().get(0).equalsIgnoreCase("lub")) {
+					}else if ("lub".equalsIgnoreCase(getStatement().get(0))) {
 						appendToStringBuilder("OR ");
 						popFirstElementFromList();
 					}else{
@@ -102,7 +100,7 @@ public abstract class AbstractQuery implements Query {
 	}
 
 	private void checkIfStatementIsNegation(){
-		if(getStatement().get(1).equalsIgnoreCase("nie")){
+		if("nie".equalsIgnoreCase(getStatement().get(1))){
 			appendToStringBuilder("NOT " + getStatement().get(0));
 			//usuwanie nazwy pola
 			popFirstElementFromList();
