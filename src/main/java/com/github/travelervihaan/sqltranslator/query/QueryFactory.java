@@ -12,11 +12,11 @@ import java.util.List;
 @Component
 public class QueryFactory {
 
-	private final String SELECT = "select";
-	private final String DELETE = "delete";
-	private final String UPDATE = "update";
-	private final String CREATE = "create";
-	private DictionaryService dictionaryService;
+	private static final String SELECT = "select";
+	private static final String DELETE = "delete";
+	private static final String UPDATE = "update";
+	private static final String CREATE = "create";
+	private final DictionaryService dictionaryService;
 
 	@Autowired
 	@Qualifier(value="deleteQuery")

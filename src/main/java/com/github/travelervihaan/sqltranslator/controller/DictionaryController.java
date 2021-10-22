@@ -35,7 +35,7 @@ public class DictionaryController {
 
 	@PostMapping("/addnewdictionary")
 	public String addNewDictionary(@RequestParam String dictionaryName, @RequestParam String words){
-		dictionaryService.addNewDictionary(dictionaryName,words);
+		dictionaryService.addNewDictionary(dictionaryName, words);
 		return "redirect:/dictionary";
 	}
 

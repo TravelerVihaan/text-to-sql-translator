@@ -2,6 +2,7 @@ package com.github.travelervihaan.sqltranslator.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import com.mongodb.MongoSocketException;
 @Service
 public class DictionaryService {
 	
-	private DictionaryRepository dictionaryRepository;
+	private final DictionaryRepository dictionaryRepository;
 	
 	@Autowired
 	public DictionaryService(DictionaryRepository dictionaryRepository) {
@@ -26,40 +27,35 @@ public class DictionaryService {
 	}
 	
 	public List<Dictionary> getAllDictionaries() {
-		List<Dictionary> dictionaries = null;
 		try {
-			dictionaries = dictionaryRepository.findAll();
-			return dictionaries;
+			return dictionaryRepository.findAll();
 		}catch(MongoSocketException e) {
 			System.err.println("[ERROR] Problem with database connection!\n");
-			return dictionaries;
+			return Collections.emptyList();
 		}
 	}
 
 	public void addNewDictionary(String dictionaryName, String words) {
-		try {
-			if (isFormCorrectlyFilled(dictionaryName) && isFormCorrectlyFilled(words)) {
-				List<String> wordsList = new ArrayList<>(Arrays.asList(words.split(" ")));
-				Dictionary dictionary = new Dictionary(dictionaryName, wordsList);
+		if (isFormCorrectlyFilled(dictionaryName) && isFormCorrectlyFilled(words)) {
+			List<String> wordsList = Arrays.asList(words.split(" "));
+			Dictionary dictionary = new Dictionary(dictionaryName, wordsList);
+			try {
 				dictionaryRepository.save(dictionary);
+			}catch(MongoSocketException e) {
+				System.err.println("[ERROR] Problem with database connection!\n");
 			}
-		}catch(MongoSocketException e){
-			System.err.println("[ERROR] Problem with database connection!\n");
-		}catch(IllegalArgumentException e){
+		} else {
 			System.err.println("[ERROR] Form was filled incorrect!\n");
 		}
 	}
 
-	private boolean isFormCorrectlyFilled(String dictName) throws IllegalArgumentException{
-		if(dictName.equals("")||dictName.length()<1) {
-			throw new IllegalArgumentException();
-		}else
-			return true;
+	private boolean isFormCorrectlyFilled(String input) {
+		return input != null && input.length() >= 1;
 	}
 
 	public void addWordToDictionary(String dictionaryName, String word){
 		try {
-			if (!word.equals("") && word.length() > 0) {
+			if (word.length() > 0) {
 				if(!isWordAlreadyExist(dictionaryName, word)){
 					Dictionary dictionary = dictionaryRepository.findByName(dictionaryName);
 					dictionary.getDictionaryWords().add(word);

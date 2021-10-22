@@ -55,13 +55,14 @@ public class SelectQuery extends AbstractQuery {
 	}
 
 	private boolean isAscendingOrDescending(String word){
-		return (word.equalsIgnoreCase("rosnąco")||word.equalsIgnoreCase("rosnaco")||word.equalsIgnoreCase("malejąco")||word.equalsIgnoreCase("malejaco"));
+		return (INCREASING_LITERAL_NOPL.equalsIgnoreCase(word) || INCREASING_LITERAL.equalsIgnoreCase(word)||
+				DECREASING_LITERAL.equalsIgnoreCase(word) || DECREASING_LITERAL_NOPL.equalsIgnoreCase(word));
 	}
 
 	private String checkAscendingOrDescending(String word){
-		if(word.equalsIgnoreCase("rosnąco")||word.equalsIgnoreCase("rosnaco"))
+		if(INCREASING_LITERAL.equalsIgnoreCase(word) || INCREASING_LITERAL_NOPL.equalsIgnoreCase(word))
 			return " ASC";
-		else if(word.equalsIgnoreCase("malejąco")||word.equalsIgnoreCase("malejaco"))
+		else if (DECREASING_LITERAL.equalsIgnoreCase(word) || DECREASING_LITERAL_NOPL.equalsIgnoreCase(word))
 			return " DESC";
 		else
 			return "";
@@ -70,16 +71,20 @@ public class SelectQuery extends AbstractQuery {
 	private void prepareElementsToSelect(){
 		do{
 			appendToStringBuilder(getStatement().get(0).substring(0,getStatement().get(0).length()-1));
-			if(getStatement().get(0).substring(getStatement().get(0).length()-1).equals(","))
+			if(COMMA_CHAR.equals(getStatement().get(0).substring(getStatement().get(0).length()-1)))
 				appendToStringBuilder(", ");
 			else
 				appendToStringBuilder(" ");
 			popFirstElementFromList();
-		}while(getStatement().get(0).substring(getStatement().get(0).length()-1).equals(","));
+		}while(COMMA_CHAR.equals(getStatement().get(0).substring(getStatement().get(0).length()-1)));
 		appendToStringBuilder(getStatement().get(0));
 		appendToStringBuilder(" ");
 		popFirstElementFromList();
 	}
 
-
+	private static final String INCREASING_LITERAL = "rosnąco";
+	private static final String INCREASING_LITERAL_NOPL = "rosnaco";
+	private static final String DECREASING_LITERAL = "malejąco";
+	private static final String DECREASING_LITERAL_NOPL = "malejaco";
+	private static final String COMMA_CHAR = ",";
 }
