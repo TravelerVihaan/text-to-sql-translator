@@ -8,7 +8,7 @@ User can add and delete words to dictionaries in html.
 MongoDB database is storage for the keywords recognising by application.
 
 # Used technologies
-Java 13 <br>
+Java 17 <br>
 Spring Boot <br>
 MongoDB <br>
 HTML <br>
