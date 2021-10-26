@@ -1,6 +1,8 @@
 package com.github.travelervihaan.sqltranslator.query;
 
 import com.github.travelervihaan.sqltranslator.service.DictionaryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +21,7 @@ public class SelectQuery extends AbstractQuery {
 			try {
 				prepareSortingForQuery();
 			}catch(IndexOutOfBoundsException e){
-				System.err.println("[ERROR] Wykroczono poza liste!!");
+				LOGGER.error("Wykroczono poza liste!!");
 			}
 			return;
 		}
@@ -34,7 +36,7 @@ public class SelectQuery extends AbstractQuery {
 		try{
 			prepareSortingForQuery();
 		}catch(IndexOutOfBoundsException e){
-			System.err.println("[ERROR] Wykroczono poza liste!!");
+			LOGGER.error("Wykroczono poza liste!!");
 		}
 	}
 
@@ -87,4 +89,6 @@ public class SelectQuery extends AbstractQuery {
 	private static final String DECREASING_LITERAL = "malejąco";
 	private static final String DECREASING_LITERAL_NOPL = "malejaco";
 	private static final String COMMA_CHAR = ",";
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(SelectQuery.class);
 }

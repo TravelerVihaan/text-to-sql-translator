@@ -3,6 +3,8 @@ package com.github.travelervihaan.sqltranslator.service;
 import com.github.travelervihaan.sqltranslator.model.Dictionary;
 import com.github.travelervihaan.sqltranslator.repository.DictionaryRepository;
 import com.mongodb.MongoSocketException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +30,7 @@ public class DictionaryService {
 		try {
 			return dictionaryRepository.findAll();
 		}catch(MongoSocketException e) {
-			System.err.println("[ERROR] Problem with database connection!\n");
+			LOGGER.error("[ERROR] Problem with database connection!");
 			return Collections.emptyList();
 		}
 	}
@@ -40,10 +42,10 @@ public class DictionaryService {
 			try {
 				dictionaryRepository.save(dictionary);
 			}catch(MongoSocketException e) {
-				System.err.println("[ERROR] Problem with database connection!\n");
+				LOGGER.error("[ERROR] Problem with database connection!");
 			}
 		} else {
-			System.err.println("[ERROR] Form was filled incorrect!\n");
+			LOGGER.warn("[ERROR] Form was filled incorrect!");
 		}
 	}
 
@@ -61,9 +63,9 @@ public class DictionaryService {
 				}
 			}
 		}catch(IllegalArgumentException e) {
-			System.err.println("[ERROR] Niepoprawne słowo!!");
+			LOGGER.warn("[ERROR] Niepoprawne słowo!!");
 		}catch(MongoSocketException e) {
-			System.err.println("[ERROR] Problem with database connection!\n");
+			LOGGER.error("[ERROR] Problem with database connection!");
 		}
 	}
 	
@@ -77,7 +79,7 @@ public class DictionaryService {
 				dictionaryRepository.save(dictionary);
 			}
 		}catch(MongoSocketException e) {
-			System.err.println("[ERROR] Podane slowo nie istnieje w tym slowniku!!");
+			LOGGER.warn("Podane slowo nie istnieje w tym slowniku!!");
 		}
 	}
 
@@ -89,4 +91,6 @@ public class DictionaryService {
 	public boolean compareWord(Dictionary dictionary, String word) {
 		return dictionary.getDictionaryWords().stream().anyMatch(dictionaryWord -> dictionaryWord.equalsIgnoreCase(word));
 	}
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(DictionaryService.class);
 }

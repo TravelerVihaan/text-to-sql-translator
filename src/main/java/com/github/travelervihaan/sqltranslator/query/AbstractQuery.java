@@ -2,6 +2,8 @@ package com.github.travelervihaan.sqltranslator.query;
 
 import com.github.travelervihaan.sqltranslator.service.DictionaryService;
 import com.mongodb.MongoSocketException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -22,11 +24,7 @@ public abstract class AbstractQuery implements Query {
 	public void initQuery(List<String> statement, String firstWord) {
 		this.statementList = statement;
 		stringBuilder = new StringBuilder(firstWord);
-		try {
-			statementList.remove(0);
-		}catch(NullPointerException e){
-			System.err.println("[ERROR] NullPointerException in AbstractQuery constructor");
-		}
+		statementList.remove(0);
 	}
 
 	@Override
@@ -139,10 +137,10 @@ public abstract class AbstractQuery implements Query {
 		try {
 			return dictionaryService.compareWord(dictionaryService.getByName(dictionaryName), getStatement().get(0));
 		}catch(MongoSocketException e){
-			System.err.println("[ERROR] Problem with database connection!\n");
+			LOGGER.error("Problem with database connection!");
 			return false;
 		}catch(IndexOutOfBoundsException e){
-			System.err.println("[ERROR] Niepoprawna forma wyrazenia!\n");
+			LOGGER.warn("Niepoprawna forma wyrazenia!");
 			return false;
 		}
 	}
@@ -150,5 +148,7 @@ public abstract class AbstractQuery implements Query {
 	void popFirstElementFromList(){
 		getStatement().remove(0);
 	}
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractQuery.class);
 
 }

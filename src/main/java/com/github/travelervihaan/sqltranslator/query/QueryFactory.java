@@ -1,9 +1,10 @@
 package com.github.travelervihaan.sqltranslator.query;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.github.travelervihaan.sqltranslator.service.DictionaryService;
 import com.mongodb.MongoSocketException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
@@ -36,22 +37,22 @@ public class QueryFactory {
 		this.dictionaryService = dictionaryService;
 	}
 	
-	public Query createSpecifiedQuery(String firstWord, List<String> splitStatementFragmets) {
+	public Query createSpecifiedQuery(String firstWord, List<String> splitStatementFragments) {
 
 		if(compareFirstWord(SELECT, firstWord)) {
-			selectQuery.initQuery(splitStatementFragmets, "SELECT ");
+			selectQuery.initQuery(splitStatementFragments, "SELECT ");
 			return selectQuery;
 		}
 		if(compareFirstWord(DELETE, firstWord)) {
-			deleteQuery.initQuery(splitStatementFragmets, "DELETE ");
+			deleteQuery.initQuery(splitStatementFragments, "DELETE ");
 			return deleteQuery;
 		}
 		if(compareFirstWord(UPDATE, firstWord)) {
-			updateQuery.initQuery(splitStatementFragmets, "UPDATE ");
+			updateQuery.initQuery(splitStatementFragments, "UPDATE ");
 			return updateQuery;
 		}
 		if(compareFirstWord(CREATE, firstWord)) {
-			createQuery.initQuery(splitStatementFragmets, "CREATE ");
+			createQuery.initQuery(splitStatementFragments, "CREATE ");
 			return createQuery;
 		}
 
@@ -62,8 +63,10 @@ public class QueryFactory {
 		try {
 			return dictionaryService.compareWord(dictionaryService.getByName(queryType), firstWord);
 		}catch(MongoSocketException e) {
-			System.err.println("[ERROR] Problem with database connection!\n");
+			LOGGER.error("Problem with database connection!");
 			return false;
 		}
 	}
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(QueryFactory.class);
 }
